@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Underline animado para enlaces */
+.link-animated {
+  position: relative;
+  overflow: hidden;
+}
+.link-animated::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #d4af37;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+.link-animated:hover::after {
+  width: 100%;
+}
+
+/* Animación slide & fade */
+@keyframes slideFadeIn {
+  from { transform: scaleY(0.8); opacity: 0; }
+  to   { transform: scaleY(1);   opacity: 1; }
+}
+.animate-slideFadeIn {
+  animation: slideFadeIn 0.3s forwards;
+}
