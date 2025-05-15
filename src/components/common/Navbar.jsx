@@ -39,7 +39,7 @@ const Navbar = () => {
           <img
             src="/assets/images/fondotrans.png"
             alt="MYBeautyStudy"
-            className="h-10 w-auto drop-shadow-lg transition-transform duration-300 ease-out hover:scale-110 hover:-translate-y-1"
+            className="rounded-md h-12 w-auto drop-shadow-lg transition-transform duration-300 ease-out hover:scale-110 hover:-translate-y-1"
           />
         </Link>
 
