@@ -23,6 +23,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:servicioId" element={<DetalleServicio />} />
           <Route path="/galeria/:categoria" element={<Gallery />} />
+          <Route path="/galeria" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

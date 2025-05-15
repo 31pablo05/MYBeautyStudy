@@ -2,31 +2,31 @@ import React from "react";
 
 const ReservaRapida = () => {
   return (
-    <section className="py-16 bg-gradient-to-r from-pink-100 via-yellow-100 to-yellow-200">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-10 px-6">
-        {/* Imagen */}
-        <div className="flex-shrink-0 w-full md:w-1/2">
+    <section className="py-20 bg-gradient-to-br from-[#fbeeee] via-[#fdf6e3] to-[#fbe6d3]">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-6">
+        {/* Imagen de la profesional */}
+        <div className="w-full md:w-1/2">
           <img
-            src="/assets/images/meli/4.png"
+            src="/assets/images/meli/1.png"
             alt="Profesional con herramientas"
-            className="rounded-lg shadow-lg w-full h-auto object-cover"
+            className="rounded-2xl shadow-xl w-full object-cover"
           />
         </div>
 
-        {/* Texto y llamada a acción */}
+        {/* Texto y llamada a la acción */}
         <div className="w-full md:w-1/2 text-center md:text-left">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
-            Reserva turno rápidamente
+          <h2 className="text-4xl md:text-5xl font-bold text-[#2c2c2c] mb-6">
+            Reserva tu turno fácilmente
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            Agenda tu turno con nuestra profesional para disfrutar de un servicio
-            personalizado y de calidad. ¡No esperes más!
+          <p className="text-lg text-[#4a4a4a] mb-8 leading-relaxed">
+            Coordiná tu cita con nuestra profesional y viví una experiencia de belleza única y personalizada. ¡Tu bienestar es prioridad!
           </p>
           <button
             onClick={() => window.location.href = "tel:+542804034308"}
-            className="bg-gradient-to-r from-rose-400 via-pink-500 to-rose-600 text-white py-3 px-8 rounded-full font-semibold shadow-lg hover:shadow-rose-500 hover:scale-105 transition-transform duration-300"
+            className="bg-[#d4af37] hover:bg-[#c29c2f] text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
           >
-            Reservar turno
+            consultar disponibilidad
+            
           </button>
         </div>
       </div>
