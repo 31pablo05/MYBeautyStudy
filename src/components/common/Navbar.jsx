@@ -8,18 +8,17 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  const isMobile = window.innerWidth < 768;
-  const navClasses =
-    !isMobile && scrolled
-      ? "bg-gradient-to-r from-[#eac9c1]/90 to-[#d4af37]/90 backdrop-blur-md shadow-lg p-4 fixed top-0 left-0 right-0 z-50 transition-colors duration-500"
-      : "bg-gradient-to-r from-[#B76E79]/60 to-[#eac9c1]/60 p-4 fixed top-0 left-0 right-0 z-50 transition-colors duration-500";
+    // Bloquear scroll cuando se abre el menú mobile
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
 
   const navLinks = [
     { name: "Inicio", path: "/" },
@@ -29,30 +28,37 @@ const Navbar = () => {
     { name: "Contacto", path: "/contact" },
   ];
 
+  const navClasses = `fixed top-0 left-0 right-0 z-50 p-4 transition-colors duration-500 ${
+    scrolled
+      ? "bg-gradient-to-r from-[#eac9c1]/90 to-[#d4af37]/90 backdrop-blur-md shadow-lg"
+      : "bg-gradient-to-r from-[#B76E79]/60 to-[#eac9c1]/60"
+  }`;
+
   return (
     <nav className={navClasses}>
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo eliminado */}
+        {/* Logo aquí si lo deseas */}
 
-        {/* Mobile Button */}
-        <div className="md:hidden">
+        {/* Botón menú móvil */}
+        <div className="md:hidden z-50">
           <button
             onClick={toggleMenu}
-            className="text-neutral-900 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]/50"
+            className="text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#d4af37]/60"
+            aria-label="Abrir menú"
           >
             {isOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
         </div>
 
-        {/* Desktop Menu */}
+        {/* Menú escritorio */}
         <ul className="hidden md:flex space-x-6 ml-auto">
           {navLinks.map((item, idx) => (
             <li key={idx}>
@@ -67,24 +73,34 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Overlay oscuro */}
       {isOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur-md shadow-md rounded-b-lg transition-all duration-300">
-          <ul className="px-4 pt-4 pb-3 space-y-2">
-            {navLinks.map((item, idx) => (
-              <li key={idx}>
-                <Link
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className="block py-2 px-3 text-neutral-800 font-semibold rounded-md hover:text-[#d4af37] transition-colors"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 transition-opacity duration-300"
+          onClick={toggleMenu}
+        />
       )}
+
+      {/* Menú móvil desplegable animado */}
+      <div
+        className={`md:hidden fixed top-16 left-0 right-0 bg-white text-neutral-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0 pointer-events-none"
+        }`}
+      >
+        <ul className="px-6 py-4 space-y-4">
+          {navLinks.map((item, idx) => (
+            <li key={idx}>
+              <Link
+                to={item.path}
+                onClick={() => setIsOpen(false)}
+                className="block text-lg font-semibold text-neutral-700 hover:text-[#d4af37] transition-colors"
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
