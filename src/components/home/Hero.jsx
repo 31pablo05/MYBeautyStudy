@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section
       className="relative w-full h-screen bg-no-repeat bg-center bg-cover md:bg-contain "
-      style={{ backgroundImage: "url('/assets/images/banner2.png')" }} // Usamos una sola imagen optimizada
+      style={{ backgroundImage: "url('/assets/images/banner4.png')" }} // Usamos una sola imagen optimizada
     >
       {/* Capa oscura para mejor legibilidad del texto */}
       <div className="absolute inset-0 bg-black bg-opacity-5"></div>

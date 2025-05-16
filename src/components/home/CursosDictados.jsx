@@ -59,7 +59,7 @@ const CursosDictados = () => {
           <div className="mt-10 text-center">
             <a
               href="#contacto"
-              className="inline-block bg-rose-500 text-white font-semibold py-3 px-6 rounded-full hover:bg-rose-600 transition"
+              className="inline-block bg-[#d4af37] hover:bg-[#bfa437]  text-white font-semibold py-3 px-6 rounded-full hover:bg-rose-600 transition"
             >
               Consultá por el próximo curso
             </a>
