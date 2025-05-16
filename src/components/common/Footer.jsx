@@ -15,8 +15,42 @@ const Footer = () => {
     <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white py-8">
       <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
 
+        {/* DERECHA - Redes sociales (orden móvil: primero) */}
+        <div className="flex space-x-6 order-1 sm:order-3 mb-6 sm:mb-0">
+          <a
+            href="https://www.facebook.com/mybeautystudy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group transition-transform duration-300 hover:scale-110"
+          >
+            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
+              <FaFacebookF className="text-4xl text-white" />
+            </div>
+          </a>
+          <a
+            href="https://www.tiktok.com/@mybeautystudy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group transition-transform duration-300 hover:scale-110"
+          >
+            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
+              <FaTiktok className="text-4xl text-white" />
+            </div>
+          </a>
+          <a
+            href="https://www.instagram.com/meliii_lash/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group transition-transform duration-300 hover:scale-110"
+          >
+            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
+              <FaInstagram className="text-4xl text-white" />
+            </div>
+          </a>
+        </div>
+
         {/* IZQUIERDA - Contacto */}
-        <div className="flex flex-col space-y-3 items-start mb-6 sm:mb-0">
+        <div className="flex flex-col space-y-3 items-start mb-6 sm:mb-0 order-2 sm:order-1">
           <div className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105">
             <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
               <FaMapMarkerAlt className="text-xl" />
@@ -48,7 +82,7 @@ const Footer = () => {
         </div>
 
         {/* CENTRO - Derechos */}
-        <div className="text-center text-gray-200 text-sm mb-6 sm:mb-0">
+        <div className="text-center text-gray-200 text-sm mb-6 sm:mb-0 order-3 sm:order-2">
           <p>&copy; {currentYear} MYBeautyStudy. Todos los derechos reservados.</p>
           <p>
             Desarrollado por Pablo Proboste &nbsp;|&nbsp;
@@ -61,39 +95,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* DERECHA - Redes sociales */}
-        <div className="flex space-x-6">
-          <a
-            href="https://www.facebook.com/mybeautystudy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group transition-transform duration-300 hover:scale-110"
-          >
-            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
-              <FaFacebookF className="text-2xl text-white" />
-            </div>
-          </a>
-          <a
-            href="https://www.tiktok.com/@mybeautystudy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group transition-transform duration-300 hover:scale-110"
-          >
-            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
-              <FaTiktok className="text-2xl text-white" />
-            </div>
-          </a>
-          <a
-            href="https://www.instagram.com/meliii_lash/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group transition-transform duration-300 hover:scale-110"
-          >
-            <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] transition-all duration-300">
-              <FaInstagram className="text-2xl text-white" />
-            </div>
-          </a>
-        </div>
       </div>
     </footer>
   );
