@@ -7,7 +7,7 @@ const ReservaRapida = () => {
         {/* Imagen de la profesional */}
         <div className="w-full md:w-1/2">
           <img
-            src="/assets/images/meli/1.png"
+            src="/assets/images/meli/meli.jpeg"
             alt="Profesional con herramientas"
             className="rounded-2xl shadow-xl w-full object-cover"
           />
