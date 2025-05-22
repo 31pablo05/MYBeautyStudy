@@ -8,7 +8,7 @@ const Services = () => {
       <ListaServicios />
 
    {/* Video decorativo responsive */}
-<div className="relative w-full overflow-hidden mt-10 flex items-center justify-center bg-black 
+<div className="relative w-full overflow-hidden mt-0 flex items-center justify-center bg-black 
                 max-h-[80vh] md:max-h-none md:h-[600px]">
 
   <video

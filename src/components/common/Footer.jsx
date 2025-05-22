@@ -12,7 +12,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white py-8">
+    <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white mt-40 py-8">
       <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
 
         {/* DERECHA - Redes sociales (orden móvil: primero) */}
