@@ -28,7 +28,9 @@ const CursosDictados = () => {
 
         {/* Videos de experiencias */}
         <div className="mb-20">
-          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Mirá algunos momentos de nuestros cursos</h3>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-4">
+            Mirá algunos momentos de nuestros cursos
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
               <ReactPlayer
@@ -59,7 +61,7 @@ const CursosDictados = () => {
           <div className="mt-10 text-center">
             <a
               href="#contacto"
-              className="inline-block bg-[#d4af37] hover:bg-[#bfa437]  text-white font-semibold py-3 px-6 rounded-full hover:bg-rose-600 transition"
+              className="inline-block bg-[#d4af37] hover:bg-[#bfa437] text-white font-semibold py-3 px-6 rounded-full transition"
             >
               Consultá por el próximo curso
             </a>
@@ -78,12 +80,37 @@ const CursosDictados = () => {
         </div>
 
         {/* Profesionales Invitados */}
-        <div>
+        <div className="mb-16">
           <h3 className="text-2xl font-semibold text-gray-700 mb-4">Profesionales Invitados</h3>
           <p className="text-gray-600 leading-relaxed">
             A lo largo del año contaremos con la presencia de especialistas de otras provincias para dictar formaciones exclusivas. Una oportunidad única para sumar valor a tu carrera.
           </p>
         </div>
+
+        {/* Cursos Pasados */}
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-6">Cursos Anteriores</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {cursosPasados.map((curso, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition duration-300"
+              >
+                <img
+                  src={curso.img}
+                  alt={curso.titulo}
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-6">
+                  <h4 className="text-xl font-semibold text-gray-800">{curso.titulo}</h4>
+                  <p className="text-sm text-gray-500 mb-2">{curso.fecha}</p>
+                  <p className="text-gray-600">{curso.descripcion}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
