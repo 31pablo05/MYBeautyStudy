@@ -1,4 +1,3 @@
-// ServiciosDestacados.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,22 +5,23 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { motion } from "framer-motion"; // ✅ Importamos motion
 
 const servicios = [
   {
-    img: "/assets/images/MYBeauty1.webp",
+    img: "/assets/images/pestañas/MYBeauty1.webp",
     titulo: "Pestañas",
     descripcion: "Realzamos tu mirada con lifting, extensiones clásicas o volumen.",
     ruta: "pestanas",
   },
   {
-    img: "/assets/images/MYBeauty3.webp",
+    img: "/assets/images/cejas/MYBeauty3.webp",
     titulo: "Cejas",
     descripcion: "Diseño, perfilado y pigmentación para lograr unas cejas perfectas.",
     ruta: "cejas",
   },
   {
-    img: "/assets/images/service3.jpg",
+    img: "/assets/images/depilacion/depilacionLaser.png",
     titulo: "Depilación Láser",
     descripcion: "Tecnología avanzada para eliminar el vello de forma eficaz y segura.",
     ruta: "depilacion",
@@ -31,11 +31,25 @@ const servicios = [
 const ServiciosDestacados = () => {
   return (
     <section className="py-20 bg-[#fdfaf7]">
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
+      {/* Animación al título */}
+      <motion.h2
+        className="text-4xl font-bold text-center text-gray-800 mb-12"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+      >
         Servicios Destacados
-      </h2>
+      </motion.h2>
 
-      <div className="max-w-4xl mx-auto px-4">
+      {/* Animación al carrusel */}
+      <motion.div
+        className="max-w-4xl mx-auto px-4"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={30}
@@ -69,7 +83,7 @@ const ServiciosDestacados = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </motion.div>
     </section>
   );
 };
