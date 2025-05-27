@@ -18,7 +18,7 @@ const Hero = () => {
 
   return (
     <section
-      className="hero-section relative w-full min-h-[90vh] bg-no-repeat bg-center bg-cover"
+      className="mt-2 hero-section relative w-full min-h-[90vh] bg-no-repeat bg-center bg-cover"
       style={{ backgroundImage: "url('/assets/images/banner4.png')" }}
     >
       {/* Capa oscura para mejor legibilidad */}
