@@ -30,3 +30,15 @@
 .animate-slideFadeIn {
   animation: slideFadeIn 0.3s forwards;
 }
+
+/* 🎯 COLOR PERSONALIZADO PARA LAS FLECHAS DEL CARRUSEL SWIPER */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #d4af37; /* dorado */
+  transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #b8912b; /* dorado más oscuro al hacer hover */
+}
