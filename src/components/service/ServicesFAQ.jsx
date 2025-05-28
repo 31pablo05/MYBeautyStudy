@@ -63,12 +63,20 @@ const ServicesFAQ = () => {
 
   return (
     <section className="max-w-4xl mx-auto py-12 px-4">
-    <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600">
+      <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative
+          after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 
+          after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600
+          animate-slideFadeIn
+      ">
         Preguntas Frecuentes sobre Nuestros Servicios
       </h2>
 
       {faqData.map((group, groupIndex) => (
-        <div key={group.category} className="mb-8">
+        <div
+          key={group.category}
+          className="mb-8 animate-fade-in"
+          style={{ animationDelay: `${groupIndex * 0.2}s`, animationFillMode: "both" }}
+        >
           <h3 className="text-xl font-semibold text-pink-600 mb-4">{group.category}</h3>
           <div className="space-y-2">
             {group.questions.map((item, i) => {
@@ -78,18 +86,22 @@ const ServicesFAQ = () => {
               return (
                 <div
                   key={index}
-                  className="border rounded-md p-4 cursor-pointer bg-white shadow-sm transition hover:shadow-md"
+                  className={`border rounded-md p-4 cursor-pointer bg-white shadow-sm transition 
+                    hover:shadow-md transform hover:-translate-y-1 duration-300`}
                   onClick={() => toggle(index)}
                 >
                   <p className="font-medium text-gray-800 flex justify-between items-center">
                     {item.q}
-                    <span className="text-pink-500">{isOpen ? "−" : "+"}</span>
+                    <span className="text-pink-500 text-2xl select-none">{isOpen ? "−" : "+"}</span>
                   </p>
-                  {isOpen && (
-                    <p className="text-gray-600 mt-2 transition duration-300">
-                      {item.a}
-                    </p>
-                  )}
+                  <div
+                    className={`text-gray-600 mt-2 overflow-hidden transition-[max-height] duration-500 ease-in-out`}
+                    style={{
+                      maxHeight: isOpen ? "200px" : "0px",
+                    }}
+                  >
+                    <p className="pt-2">{item.a}</p>
+                  </div>
                 </div>
               );
             })}
