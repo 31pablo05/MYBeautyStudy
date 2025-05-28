@@ -23,6 +23,12 @@ const DetalleServicio = () => {
       descripcion: "Deshazte del vello de manera permanente con nuestra depilación láser segura y eficaz.",
       detalles: "Nuestro tratamiento de depilación láser es rápido, eficiente y garantiza resultados duraderos.",
       precio: "$100"
+    },
+    "Tarjetas de regalo": {
+      nombre: "gift-cards",
+      descripcion: "Regalá belleza con nuestras tarjetas de regalo personalizadas.",
+      detalles: "Nuestras gift cards son el regalo perfecto para cualquier ocasión, personalizables y válidas para todos nuestros servicios.",
+      precio: "$50"
     }
   };
 

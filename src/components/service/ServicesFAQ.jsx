@@ -63,7 +63,7 @@ const ServicesFAQ = () => {
 
   return (
     <section className="max-w-4xl mx-auto py-12 px-4">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600">
         Preguntas Frecuentes sobre Nuestros Servicios
       </h2>
 

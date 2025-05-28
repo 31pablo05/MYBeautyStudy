@@ -6,7 +6,10 @@ const ListaServicios = () => {
   return (
     <section className="py-16 bg-white mt-20">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">Nuestros Servicios</h2>
+       <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600">
+  Nuestros Servicios
+</h2>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicios.map((servicio) => (
             <div

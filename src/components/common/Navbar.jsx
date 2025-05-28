@@ -10,10 +10,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-
-    // Bloquear scroll cuando se abre el menú mobile
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.body.style.overflow = 'auto';
@@ -37,9 +34,6 @@ const Navbar = () => {
   return (
     <nav className={navClasses}>
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo aquí si lo deseas */}
-
-        {/* Botón menú móvil */}
         <div className="md:hidden z-50">
           <button
             onClick={toggleMenu}
@@ -58,7 +52,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Menú escritorio */}
+        {/* Escritorio */}
         <ul className="hidden md:flex space-x-6 ml-auto">
           {navLinks.map((item, idx) => (
             <li key={idx}>
@@ -81,7 +75,7 @@ const Navbar = () => {
         />
       )}
 
-      {/* Menú móvil desplegable animado */}
+      {/* Menú móvil */}
       <div
         className={`md:hidden fixed top-16 left-0 right-0 bg-white text-neutral-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0 pointer-events-none"
@@ -100,6 +94,20 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        {/* Redes Sociales */}
+       <div className="flex justify-start gap-4 mt-6 px-6">
+  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+    <img src="/assets/images/icon/icons8-facebook.gif" alt="Facebook" className="w-6 h-6" />
+  </a>
+  <a href="https://www.instagram.com/meliii_lash/" target="_blank" rel="noopener noreferrer">
+    <img src="/assets/images/icon/icons8-instagram.gif" alt="Instagram" className="w-6 h-6" />
+  </a>
+  <a href="https://wa.me/5492804034308" target="_blank" rel="noopener noreferrer">
+    <img src="/assets/images/icon/icons8-whatsapp.gif" alt="WhatsApp" className="w-6 h-6" />
+  </a>
+</div>
+
       </div>
     </nav>
   );
