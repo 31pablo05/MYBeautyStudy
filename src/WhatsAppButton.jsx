@@ -18,7 +18,8 @@ const WhatsAppButton = () => {
         aria-label="Contactar por WhatsApp"
         title="Reservá ahora por WhatsApp"
       >
-        <FaWhatsapp className="text-white text-4xl" />
+        <FaWhatsapp className="text-white group-hover:text-green-500 text-4xl transition-colors duration-300" />
+
       </button>
 
       {/* Tooltip elegante visible solo en desktop */}

@@ -12,7 +12,7 @@ const InstagramFeed = () => {
 
   return (
     <section className="text-center py-12 px-4 bg-white">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600">
         <i className="fab fa-instagram text-pink-500 mr-2"></i>
         #MYBEAUTYSTUDY EN INSTAGRAM
       </h2>

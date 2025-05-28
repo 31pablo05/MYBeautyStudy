@@ -23,6 +23,14 @@ const servicios = [
     link: "/services/depilacion-laser",
     imagen: "/assets/images/depilacion/maquina.jpeg",
   },
+  {
+    id: "gift-cards",
+    titulo: "Tarjetas de Regalo",
+    descripcion:
+      "Regalá belleza con nuestras tarjetas de regalo personalizadas, perfectas para cualquier ocasión.",
+    link: "/services/gift-cards",
+    imagen: "/assets/images/GIFTCARDMelinaYancan.png",
+  },
 ];
 
 export default servicios;
