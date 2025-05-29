@@ -30,14 +30,31 @@ const InstagramFeed = () => {
         ))}
       </div>
 
-      <a
-        href="https://www.instagram.com/meliii_lash/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="border border-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition"
-      >
-        Ver Instagram
-      </a>
+     <a
+  href="https://www.instagram.com/meliii_lash/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    inline-block
+    px-6 py-3
+    rounded-md
+    bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600
+    text-white
+    font-semibold
+    shadow-lg
+    hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700
+    transition
+    duration-300
+    ease-in-out
+    transform
+    hover:-translate-y-1
+    hover:scale-105
+    focus:outline-none focus:ring-4 focus:ring-yellow-300
+  "
+>
+  Ver Instagram
+</a>
+
     </section>
   );
 };
