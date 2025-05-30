@@ -61,7 +61,7 @@ const Contact = () => {
         <meta name="author" content="MyBeautyStudy" />
       </Helmet>
 
-      <div className="container mx-auto px-4 py-32">
+      <div className="container mx-auto px-4 py-16 md:py-32">
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ const Contact = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center bg-cover bg-center rounded-xl p-6 shadow-lg h-[700px]"
+          className="flex flex-col items-center bg-cover bg-center rounded-xl p-6 shadow-lg w-full min-h-[500px] md:h-[700px]"
           style={{
             backgroundImage: 'url(/assets/images/fondoform.PNG)',
           }}
