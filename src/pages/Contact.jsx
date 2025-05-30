@@ -66,7 +66,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl font-bold text-center mb-6 text-pink-600"
+          className="text-3xl font-bold text-center mb-6 text-pink-600 mt-12"
         >
           Contáctanos
         </motion.h2>
