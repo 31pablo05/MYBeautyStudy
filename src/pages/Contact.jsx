@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -61,65 +62,86 @@ const Contact = () => {
       </Helmet>
 
       <div className="container mx-auto px-4 py-32">
-        <h2 className="text-3xl font-bold text-center mb-6 text-pink-600">Contáctanos</h2>
-<div
-  className="flex flex-col items-center bg-cover bg-center rounded-xl p-6 shadow-lg"
-  style={{
-    backgroundImage: 'url(/assets/images/fondoform.PNG)',
-  }}
->
+        <motion.h2
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-3xl font-bold text-center mb-6 text-pink-600"
+        >
+          Contáctanos
+        </motion.h2>
 
-          <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
-            <input
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center bg-cover bg-center rounded-xl p-6 shadow-lg h-[700px]"
+          style={{
+            backgroundImage: 'url(/assets/images/fondoform.PNG)',
+          }}
+        >
+          <motion.form
+            onSubmit={handleSubmit}
+            className="w-full max-w-md space-y-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <motion.input
               type="text"
               name="name"
               placeholder="Tu nombre"
               value={form.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all"
               required
+              whileFocus={{ scale: 1.02 }}
             />
-            <input
+            <motion.input
               type="email"
               name="email"
               placeholder="Tu correo electrónico"
               value={form.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all"
               required
+              whileFocus={{ scale: 1.02 }}
             />
-
-            <select
+            <motion.select
               name="reason"
               value={form.reason}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all"
               required
+              whileFocus={{ scale: 1.02 }}
             >
               <option value="">Seleccioná el motivo de tu consulta</option>
               <option value="turno">Pedir un turno</option>
               <option value="precios">Consultar precios</option>
               <option value="curso">Información sobre cursos</option>
-            </select>
-
-            <textarea
+            </motion.select>
+            <motion.textarea
               name="message"
               placeholder="Tu mensaje aparecerá automáticamente según el motivo"
               value={form.message}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all"
               rows="4"
               readOnly
+              whileFocus={{ scale: 1.01 }}
             />
 
-            <button
+            <motion.button
               type="submit"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 300 }}
               className="w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600 transition-colors"
             >
               Enviar por WhatsApp
-            </button>
-          </form>
-        </div>
+            </motion.button>
+          </motion.form>
+        </motion.div>
       </div>
     </>
   );
