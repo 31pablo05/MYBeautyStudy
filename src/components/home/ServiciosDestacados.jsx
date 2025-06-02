@@ -37,7 +37,7 @@ const servicios = [
     cta: "Reservá tu micro de cejas",
   },
   {
-    img: "/assets/images/depilacion/depilacionLaser.png", // Asegurate que exista esta imagen
+    img: "/assets/images/depilacion/depilacion.png", // Asegurate que exista esta imagen
     titulo: "Depilación Láser definitiva y segura",
     descripcion:
       "Eliminá el vello de forma eficaz con tecnología láser de última generación. Tratamiento personalizado, rápido e indoloro para todo tipo de piel.",
