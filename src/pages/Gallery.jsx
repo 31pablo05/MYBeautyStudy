@@ -1,12 +1,20 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+
 import { Helmet } from 'react-helmet';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import Captions from 'yet-another-react-lightbox/plugins/captions';
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const Gallery = () => {
   const { categoria } = useParams();
   const categoriasDisponibles = ['pestanas', 'cejas', 'depilacion'];
   const [activeTab, setActiveTab] = useState('pestanas');
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
     if (categoriasDisponibles.includes(categoria)) {
@@ -16,19 +24,20 @@ const Gallery = () => {
 
   const tabsContent = {
     pestanas: [
-      { img: 'https://via.placeholder.com/300x200?text=Pestañas+1', label: 'Imagen 1 Pestañas' },
-      { img: 'https://via.placeholder.com/300x200?text=Pestañas+2', label: 'Imagen 2 Pestañas' },
-      { img: 'https://via.placeholder.com/300x200?text=Pestañas+3', label: 'Imagen 3 Pestañas' },
+      { src: '/assets/images/pestañas/MYBeauty1.webp', title: 'Diseño de Pestañas 1' },
+      { src: '/assets/images/pestañas/MYBeauty2.webp', title: 'Diseño de Pestañas 2' },
+      { src: '/assets/images/pestañas/MYBeauty4.webp', title: 'Diseño de Pestañas 3' },
     ],
     cejas: [
-      { img: 'https://via.placeholder.com/300x200?text=Cejas+1', label: 'Imagen 1 Cejas' },
-      { img: 'https://via.placeholder.com/300x200?text=Cejas+2', label: 'Imagen 2 Cejas' },
-      { img: 'https://via.placeholder.com/300x200?text=Cejas+3', label: 'Imagen 3 Cejas' },
+      { src: '/assets/images/cejas/MYBeauty3.webp', title: 'Perfilado de Cejas 1' },
+      { src: '/assets/images/cejas/MYBeauty5.webp', title: 'Perfilado de Cejas 2' },
+      { src: '/assets/images/cejas/MYBeauty6.webp', title: 'Perfilado de Cejas 3' },
+      { src: '/assets/images/cejas/MYBeauty7.webp', title: 'Perfilado de Cejas 4' },
     ],
     depilacion: [
-      { img: 'https://via.placeholder.com/300x200?text=Depilación+1', label: 'Imagen 1 Depilación' },
-      { img: 'https://via.placeholder.com/300x200?text=Depilación+2', label: 'Imagen 2 Depilación' },
-      { img: 'https://via.placeholder.com/300x200?text=Depilación+3', label: 'Imagen 3 Depilación' },
+      { src: '/assets/images/depilacion/depilacion.PNG', title: 'Depilación Corporal 1' },
+      { src: '/assets/images/depilacion/depilacionLaser.png', title: 'Depilación Láser' },
+      { src: '/assets/images/depilacion/maquina.jpeg', title: 'Equipamiento' },
     ],
   };
 
@@ -36,6 +45,11 @@ const Gallery = () => {
     pestanas: 'Galería de Pestañas',
     cejas: 'Galería de Cejas',
     depilacion: 'Galería de Depilación',
+  };
+
+  const openLightbox = (index) => {
+    setSelectedImageIndex(index);
+    setIsOpen(true);
   };
 
   return (
@@ -53,6 +67,7 @@ const Gallery = () => {
       </Helmet>
 
       <div className="max-w-6xl mx-auto py-20 px-4">
+        {/* Tabs */}
         <div className="flex justify-center space-x-6 border-b-2 mb-8">
           {categoriasDisponibles.map((tab) => (
             <button
@@ -69,24 +84,52 @@ const Gallery = () => {
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {tabsContent[activeTab]?.map((image, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105 duration-300"
-            >
-              <img
-                src={image.img}
-                alt={image.label}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <p className="text-center text-lg font-semibold text-gray-700">{image.label}</p>
-              </div>
-            </div>
-          ))}
+        {/* Galería */}
+        <AnimatePresence mode="wait">
+  <motion.div
+    key={activeTab}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.5 }}
+    className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+  >
+    {tabsContent[activeTab].map((image, index) => (
+      <motion.div
+        key={index}
+        onClick={() => openLightbox(index)}
+        className="cursor-pointer bg-white shadow-lg rounded-lg overflow-hidden"
+        whileHover={{ scale: 1.05 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.05 }}
+      >
+        <img
+          src={image.src}
+          alt={image.title}
+          className="w-full h-48 object-cover"
+        />
+        <div className="p-4">
+          <p className="text-center text-lg font-semibold text-gray-700">
+            {image.title}
+          </p>
         </div>
+      </motion.div>
+    ))}
+  </motion.div>
+</AnimatePresence>
+
       </div>
+
+      {/* Lightbox */}
+      <Lightbox
+        open={isOpen}
+        close={() => setIsOpen(false)}
+        index={selectedImageIndex}
+        slides={tabsContent[activeTab]}
+        plugins={[Captions, Thumbnails]}
+        captions={{ showToggle: true }}
+      />
     </>
   );
 };
