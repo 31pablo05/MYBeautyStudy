@@ -1,15 +1,73 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
+
+const slides = [
+  { type: "image", src: "/assets/images/estudio.jpg", alt: "Estudio 1" },
+  { type: "video", src: "/assets/videos/competencia.mp4" },
+  { type: "video", src: "/assets/videos/videodepilacion.mp4", alt: "Estudio 3" },
+];
 
 const Historia = () => {
+  const [current, setCurrent] = useState(0);
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  // Opcional: autoplay (cada 5 segundos)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Nuestra Historia</h2>
-        <img
-          src="/assets/images/history.jpg"
-          alt="Historia del estudio"
-          className="w-full h-auto mb-6 rounded-lg shadow-md"
-        />
+
+        {/* Carrusel */}
+        <div className="relative w-full aspect-video mb-6 rounded-lg overflow-hidden bg-black">
+          {slides[current].type === "image" ? (
+            <img
+              src={slides[current].src}
+              alt={slides[current].alt}
+              className="w-full h-full object-contain transition-all duration-500"
+            />
+          ) : (
+            <ReactPlayer
+              url={slides[current].src}
+              playing
+              loop
+              muted
+              controls={false}
+              width="100%"
+              height="100%"
+              className="react-player"
+            />
+          )}
+
+          {/* Flechas */}
+          <button
+            onClick={prevSlide}
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition"
+          >
+            ◀
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition"
+          >
+            ▶
+          </button>
+        </div>
+
+        {/* Texto */}
         <p className="text-lg text-gray-700">
           El estudio de belleza nació con la misión de empoderar a las personas a través de su imagen. A lo largo de los años, hemos formado una comunidad fiel de clientas que valoran el profesionalismo, la dedicación y el detalle. Desde nuestros comienzos en Trelew hasta convertirnos en un punto de referencia en la ciudad, cada paso ha estado guiado por la pasión y el compromiso con la excelencia.
         </p>

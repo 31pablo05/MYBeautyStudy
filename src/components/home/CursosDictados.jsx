@@ -1,5 +1,7 @@
 import React from "react";
 import ReactPlayer from "react-player";
+import { Link } from "react-router-dom"; // al principio del archivo
+
 
 const cursosPasados = [
   {
@@ -22,7 +24,7 @@ const CursosDictados = () => {
   return (
     <section className="bg-gradient-to-br from-[#fefaf7] to-[#fff0eb] py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-16 relative inline-block after:block after:w-20 after:h-1 after:bg-rose-300 after:mx-auto after:mt-2">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-16 relative inline-block after:block after:w-20 after:h-1 after:bg-[#d4af37] after:mx-auto after:mt-2">
           Formación Profesional
         </h2>
 
@@ -54,12 +56,13 @@ const CursosDictados = () => {
           </div>
 
           <div className="mt-10 text-center">
-            <a
-              href="#contacto"
-              className="inline-block bg-[#d4af37] hover:bg-[#bfa437] text-white font-semibold py-3 px-6 rounded-full transition"
-            >
-              Consultá por el próximo curso
-            </a>
+           <Link
+  to="/Contact"
+  className="inline-block bg-[#d4af37] hover:bg-[#bfa437] text-white font-semibold py-3 px-6 rounded-full transition-transform duration-500 hover:scale-105 animate-pulse"
+>
+  Consultá por el próximo curso
+</Link>
+
           </div>
         </div>
 

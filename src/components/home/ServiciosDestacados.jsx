@@ -106,7 +106,7 @@ const ServiciosDestacados = () => {
                     ))}
                   </ul>
                   <Link
-                    to={`/galeria/${servicio.ruta}`}
+                    to="/Contact"
                     className="inline-block bg-[#E6A5A1] hover:bg-[#D98E89] text-white font-medium py-2 px-6 rounded-full transition-all"
                   >
                     {servicio.cta}
