@@ -66,23 +66,36 @@ const Contact = () => {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl font-bold text-center mb-6 text-pink-600 mt-12"
+          className="text-3xl font-bold text-center mb-2 text-pink-600 mt-12"
         >
           Contáctanos
         </motion.h2>
 
+        {/* LÍNEA DORADA */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center bg-cover bg-center rounded-xl p-6 shadow-lg w-full min-h-[500px] md:h-[700px]"
+          initial={{ width: 0 }}
+          animate={{ width: '96px' }}
+          transition={{ duration: 0.6 }}
+          className="h-1 bg-[#d4af37] mx-auto rounded-full mb-8"
+        />
+
+        {/* FORMULARIO CON FONDO */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-center"
           style={{
             backgroundImage: 'url(/assets/images/fondoform.PNG)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            padding: '2rem',
+            borderRadius: '1rem',
           }}
         >
           <motion.form
             onSubmit={handleSubmit}
-            className="w-full max-w-md space-y-4"
+            className="w-full max-w-md space-y-4 bg-white bg-opacity-90 p-6 rounded-lg shadow-md"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
