@@ -97,7 +97,7 @@ const Navbar = () => {
 
         {/* Redes Sociales */}
        <div className="flex justify-start gap-4 mt-6 px-6">
-  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+  <a href="https://www.facebook.com/my.estudio.beauty?mibextid=wwXIfr&rdid=gqeVbEcOUft7YLM6#" target="_blank" rel="noopener noreferrer">
     <img src="/assets/images/icon/icons8-facebook.gif" alt="Facebook" className="w-6 h-6" />
   </a>
   <a href="https://www.instagram.com/meliii_lash/" target="_blank" rel="noopener noreferrer">
