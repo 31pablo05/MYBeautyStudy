@@ -5,6 +5,7 @@ import ServiciosDestacados from "../components/home/ServiciosDestacados";
 import ReservaRapida from "../components/home/ReservaRapida";
 import CursosDictados from "../components/home/CursosDictados";
 import InstagramFeed from "../components/home/InstagramFeed";
+import TurnoCalendar from "../components/home/TurnoCalendar";
 
 const Home = () => {
   return (
@@ -24,6 +25,15 @@ const Home = () => {
       <div>
         <Hero />
         <ReservaRapida />
+
+        {/* Sección del calendario para reservar turnos */}
+        <section id="reservas" className="py-10 bg-white">
+          <div className="container mx-auto">
+            <TurnoCalendar />
+          </div>
+        </section>
+
+        {/* Secciones siguientes */}
         <ServiciosDestacados />
         <CursosDictados />
         <InstagramFeed />
