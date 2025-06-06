@@ -18,14 +18,15 @@ const Presentacion = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-pink-200 to-pink-100 rounded-full blur-2xl scale-125 z-0" />
 
             {/* Imagen animada con framer-motion */}
-            <motion.img
-              src="/assets/images/meli/1.webp"
-              alt="Melina Yancan"
-              className="relative max-w-xs md:max-w-sm rounded-lg shadow-xl object-contain z-10"
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            />
+<motion.img
+  src="/assets/images/meli/1.webp"
+  alt="Melina Yancan"
+  className="relative max-w-xs md:max-w-sm object-contain z-10"
+  initial={{ opacity: 0, x: -100 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+/>
+
           </div>
 
           {/* Texto animado */}
