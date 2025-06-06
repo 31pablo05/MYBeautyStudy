@@ -2,10 +2,20 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const ReservaRapida = () => {
+  // Texto del mensaje que se enviará por WhatsApp
+  const mensaje = "¡Hola! Quisiera consultar por disponibilidad de turnos. 😊";
+  const telefono = "542804034308"; // sin espacios ni signos
+
+  const redireccionarWhatsapp = () => {
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <section className="py-20 bg-gradient-to-br from-[#fbeeee] via-[#fdf6e3] to-[#fbe6d3]">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-6">
-        {/* Imagen de la profesional con animación desde la izquierda */}
+
+        {/* Imagen de la profesional */}
         <motion.div
           className="w-full md:w-1/2"
           initial={{ opacity: 0, x: -50 }}
@@ -20,7 +30,7 @@ const ReservaRapida = () => {
           />
         </motion.div>
 
-        {/* Texto con animación desde la derecha */}
+        {/* Texto y botón */}
         <motion.div
           className="w-full md:w-1/2 text-center md:text-left"
           initial={{ opacity: 0, x: 50 }}
@@ -37,7 +47,7 @@ const ReservaRapida = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
-            onClick={() => window.location.href = "tel:+542804034308"}
+            onClick={redireccionarWhatsapp}
             className="bg-[#d4af37] hover:bg-[#c29c2f] text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-transform transform"
           >
             Consultar disponibilidad
