@@ -19,7 +19,7 @@ const Presentacion = () => {
 
             {/* Imagen animada con framer-motion */}
             <motion.img
-              src="/assets/images/meli/1.png"
+              src="/assets/images/meli/1.webp"
               alt="Melina Yancan"
               className="relative max-w-xs md:max-w-sm rounded-lg shadow-xl object-contain z-10"
               initial={{ opacity: 0, x: -100 }}

@@ -86,7 +86,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="flex justify-center"
           style={{
-            backgroundImage: 'url(/assets/images/fondoform.PNG)',
+            backgroundImage: 'url(/assets/images/fondoform.webp)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             padding: '2rem',

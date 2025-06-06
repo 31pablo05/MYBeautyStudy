@@ -35,9 +35,9 @@ const Gallery = () => {
       { src: '/assets/images/cejas/MYBeauty7.webp', title: 'Perfilado de Cejas 4' },
     ],
     depilacion: [
-      { src: '/assets/images/depilacion/depilacion.PNG', title: 'Depilación Corporal 1' },
-      { src: '/assets/images/depilacion/depilacionLaser.png', title: 'Depilación Láser' },
-      { src: '/assets/images/depilacion/maquina.jpeg', title: 'Equipamiento' },
+      { src: '/assets/images/depilacion/depilacion.webp', title: 'Depilación Corporal 1' },
+      { src: '/assets/images/depilacion/depilacionLaser.webp', title: 'Depilación Láser' },
+      { src: '/assets/images/depilacion/maquina.webp', title: 'Equipamiento' },
     ],
   };
 

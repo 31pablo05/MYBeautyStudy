@@ -14,7 +14,7 @@ const ReservaRapida = () => {
           viewport={{ once: true, amount: 0.5 }}
         >
           <img
-            src="/assets/images/meli/meli.jpeg"
+            src="/assets/images/meli/meli.webp"
             alt="Profesional con herramientas"
             className="rounded-2xl shadow-xl w-full object-cover"
           />

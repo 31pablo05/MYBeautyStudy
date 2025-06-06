@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 
 const slides = [
-  { type: "image", src: "/assets/images/estudio.jpg", alt: "Estudio 1" },
+  { type: "image", src: "/assets/images/estudio.webp", alt: "Estudio 1" },
   { type: "video", src: "/assets/videos/competencia.mp4" },
   { type: "video", src: "/assets/videos/videodepilacion.mp4", alt: "Estudio 3" },
 ];
@@ -22,7 +22,7 @@ const Historia = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 10000);
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 

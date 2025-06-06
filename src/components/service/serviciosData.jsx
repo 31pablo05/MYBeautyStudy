@@ -21,7 +21,7 @@ const servicios = [
     descripcion:
       "Olvidate del vello con nuestra depilación láser, un tratamiento eficaz y duradero.",
     link: "/services/depilacion-laser",
-    imagen: "/assets/images/depilacion/maquina.jpeg",
+    imagen: "/assets/images/depilacion/maquina.webp",
   },
   {
     id: "gift-cards",
@@ -29,7 +29,7 @@ const servicios = [
     descripcion:
       "Regalá belleza con nuestras tarjetas de regalo personalizadas, perfectas para cualquier ocasión.",
     link: "/services/gift-cards",
-    imagen: "/assets/images/GIFTCARDMelinaYancan.png",
+    imagen: "/assets/images/GIFTCARDMelinaYancan.webp",
   },
 ];
 

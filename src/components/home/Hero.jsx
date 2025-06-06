@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import logo from "/assets/images/LOGOROSEGOLD.png";
+import logo from "/assets/images/LOGO ROSEGOLD.webp";
 
 // Crear componente animado basado en Link
 const MotionLink = motion(Link);
