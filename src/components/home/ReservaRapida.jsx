@@ -1,10 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import BannerHorarios from "./BannerHorarios";
 
 const ReservaRapida = () => {
-  // Texto del mensaje que se enviará por WhatsApp
   const mensaje = "¡Hola! Quisiera consultar por disponibilidad de turnos. 😊";
-  const telefono = "542804034308"; // sin espacios ni signos
+  const telefono = "542804034308";
 
   const redireccionarWhatsapp = () => {
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -14,7 +14,6 @@ const ReservaRapida = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-[#fbeeee] via-[#fdf6e3] to-[#fbe6d3]">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-6">
-
         {/* Imagen de la profesional */}
         <motion.div
           className="w-full md:w-1/2"
@@ -52,7 +51,13 @@ const ReservaRapida = () => {
           >
             Consultar disponibilidad
           </motion.button>
+          
         </motion.div>
+      </div>
+
+      {/* Banner de horarios debajo, separado del contenido */}
+      <div className="mt-12 px-6">
+        <BannerHorarios />
       </div>
     </section>
   );

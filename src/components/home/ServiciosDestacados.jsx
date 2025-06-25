@@ -9,10 +9,11 @@ import { motion } from "framer-motion";
 
 const servicios = [
   {
-    img: "/assets/images/cejas/MYBeauty7.webp",
+    img: "/assets/images/pestañas/MYBeauty1.webp",
+    
     titulo: "Realzá tu mirada con pestañas perfectas",
     descripcion:
-      "Extensiones clásicas, volumen ruso o lifting. Técnicas indoloras y duraderas aplicadas por especialistas para una mirada profunda sin maquillaje.",
+      "Extensiones clásicas, volumen Brasilero y efecto remmel. Técnicas indoloras y duraderas aplicadas por especialistas para una mirada profunda sin maquillaje.",
     bullets: [
       "Volumen Natural o Intenso según tu estilo",
       "Técnicas seguras e indoloras",
@@ -23,7 +24,7 @@ const servicios = [
     cta: "Consultar citas de pestañas",
   },
   {
-    img: "/assets/images/pestañas/MYBeauty1.webp",
+    img: "/assets/images/cejas/MYBeauty7.webp",
     titulo: "Tus cejas perfectas con Micro de Cejas Blink",
     descripcion:
       "El Micro de Cejas Blink logra la mejor versión de tu mirada, con un diseño profesional adaptado a tu rostro para un resultado natural y duradero.",

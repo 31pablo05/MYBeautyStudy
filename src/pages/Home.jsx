@@ -6,7 +6,7 @@ import ReservaRapida from "../components/home/ReservaRapida";
 import CursosDictados from "../components/home/CursosDictados";
 import InstagramFeed from "../components/home/InstagramFeed";
 import TurnoCalendar from "../components/home/TurnoCalendar";
-
+import BannerHorarios from "../components/home/BannerHorarios";
 const Home = () => {
   return (
     <>
@@ -25,6 +25,8 @@ const Home = () => {
       <div>
         <Hero />
         <ReservaRapida />
+        
+
 
         {/* Sección del calendario para reservar turnos */}
         <section id="reservas" className="py-10 bg-white">

@@ -1,125 +1,96 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Helmet } from "react-helmet"; // IMPORTANTE para modificar el <head>
+import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet";
 import logo from "/assets/images/LOGO ROSEGOLD.webp";
+import fondo from "/assets/images/fondoform.webp";
 
 const MotionLink = motion(Link);
 
+const keywords = [
+  "Cejas perfectas",
+  "Miradas inolvidables",
+  "Belleza natural",
+  "Lifting de pestañas",
+  "Depilación láser profesional"
+];
+
 const Hero = () => {
+  const [wordIndex, setWordIndex] = useState(0);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const section = document.querySelector('.hero-section');
-      const yOffset = window.scrollY;
-      if (section) {
-        section.style.backgroundPositionY = `${yOffset * 0.5}px`;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % keywords.length);
+    }, 2200);
+    return () => clearInterval(interval);
   }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        staggerChildren: 0.3,
-        duration: 1,
-      }
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
 
   return (
     <>
-      {/* Preload para cargar el logo con prioridad */}
       <Helmet>
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/images/LOGO ROSEGOLD.webp"
-          type="image/webp"
-        />
+        <link rel="preload" as="image" href="/assets/images/LOGO ROSEGOLD.webp" type="image/webp" />
       </Helmet>
-
       <section
-        className="hero-section relative w-full min-h-[90vh] bg-gradient-to-br from-[#f7cac9] via-[#fbd5bd] to-[#f1a9a0] bg-no-repeat bg-center bg-cover"
+        className="hero-section relative w-full min-h-[92vh] flex flex-col justify-between bg-no-repeat bg-center bg-cover overflow-hidden"
+        style={{
+          backgroundImage:
+            `linear-gradient(120deg, rgba(247,202,201,0.92) 0%, rgba(251,213,189,0.85) 50%, rgba(241,169,160,0.85) 100%), url(${fondo})`
+        }}
       >
-        <div className="absolute inset-0 bg-white bg-opacity-10 backdrop-blur-sm"></div>
-
-        {/* Logo flotante con animación */}
-        <motion.img
-          src={logo}
-          alt="MYBeautyStudy Logo"
-          className="
-            absolute top-16 
-            left-[20%] -translate-x-[45%] 
-            w-56 sm:w-72 
-            z-20 mt-32
-            md:left-[40%] md:-translate-x-[55%]
-            md:w-96
-          "
-          style={{
-            filter: "drop-shadow(0 10px 5px rgba(0, 0, 0, 0.55))",
-            willChange: "transform", // mejora el rendimiento en animaciones
-          }}
-          animate={{
-            y: [0, -10, 0],
-            rotate: [0, 2, -2, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Contenedor animado para texto y botón */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 flex flex-col justify-end items-center min-h-[80vh] text-black text-center px-4 pt-40"
-        >
-          <motion.h1 
-            variants={itemVariants} 
-            className="text-3xl md:text-5xl font-bold mb-4"
+        {/* Logo centrado verticalmente */}
+        <div className="w-full flex justify-center items-center" style={{ minHeight: '220px', marginTop: '240px' }}>
+          <motion.img
+            src={logo}
+            alt="MYBeautyStudy Logo"
+            className="w-60 md:w-80 lg:w-[28rem] drop-shadow-xl"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            style={{ filter: "drop-shadow(0 0 24px #d4af37)" }}
+          />
+        </div>
+        {/* Contenido principal */}
+        <div className="flex flex-col items-center justify-center flex-1 text-center px-4 mt-2 md:mt-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.2, ease: "easeOut" }}
+            className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight text-[#b76e79] drop-shadow-lg"
           >
             Armonizá tu mirada
           </motion.h1>
-
-          <motion.p 
-            variants={itemVariants} 
-            className="text-base md:text-xl max-w-2xl mb-6"
+          <div className="h-12 md:h-14 flex items-center justify-center mb-6">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={keywords[wordIndex]}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.7 }}
+                className="text-lg md:text-2xl font-semibold text-[#d4af37] bg-white/60 px-4 py-2 rounded-full shadow-md"
+              >
+                {keywords[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-base md:text-xl max-w-2xl mb-8 text-[#6d4c41] font-medium drop-shadow-sm"
           >
-            Perfilado de cejas · Lifting y extensiones de pestañas · Depilación
-            láser y con cera · Limpieza facial y dermaplaning
+            Brow Lamination · Lashista · Lami Maker
           </motion.p>
-
-          <motion.div variants={itemVariants}>
-            <MotionLink
-              to="/contact"
-              className="bg-[#d4af37] hover:bg-[#bfa437] text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-xl"
-              animate={{
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              Reservar turno
-            </MotionLink>
-          </motion.div>
-        </motion.div>
+          <MotionLink
+            to="/contact"
+            className="bg-[#d4af37] hover:bg-[#bfa437] text-white font-bold py-4 px-12 rounded-full transition-all duration-300 shadow-xl hover:scale-110 hover:shadow-2xl text-lg md:text-xl tracking-wide focus:outline-none focus:ring-4 focus:ring-[#d4af37]/40 animate-pulse"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Reservar turno
+          </MotionLink>
+        </div>
+        {/* Quitados los detalles decorativos dorados */}
       </section>
     </>
   );

@@ -53,18 +53,52 @@ const Historia = () => {
           )}
 
           {/* Flechas */}
-          <button
-            onClick={prevSlide}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition"
-          >
-            ◀
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition"
-          >
-            ▶
-          </button>
+         {/* Flecha izquierda */}
+<button
+  onClick={prevSlide}
+  className="
+    absolute 
+    top-1/2 
+    left-4 
+    transform -translate-y-1/2 
+    bg-white/20 
+    backdrop-blur-md 
+    hover:bg-white/40 
+    p-3 
+    rounded-full 
+    shadow-md 
+    transition 
+    text-white 
+    text-xl
+  "
+>
+  <span className="sr-only">Anterior</span>
+  ❮
+</button>
+
+{/* Flecha derecha */}
+<button
+  onClick={nextSlide}
+  className="
+    absolute 
+    top-1/2 
+    right-4 
+    transform -translate-y-1/2 
+    bg-white/20 
+    backdrop-blur-md 
+    hover:bg-white/40 
+    p-3 
+    rounded-full 
+    shadow-md 
+    transition 
+    text-white 
+    text-xl
+  "
+>
+  <span className="sr-only">Siguiente</span>
+  ❯
+</button>
+
         </div>
 
         {/* Texto */}
