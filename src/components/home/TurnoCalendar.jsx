@@ -2,48 +2,116 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const diasBloqueados = [
+  // Ejemplo: [2025, 6, 29] para 29 de junio de 2025
+  // [2025, 6, 29],
+];
+
+const horasDisponibles = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
 
 const TurnoCalendar = () => {
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
   const [horaSeleccionada, setHoraSeleccionada] = useState('');
+  const [confirmado, setConfirmado] = useState(false);
+  const [loading, setLoading] = useState(false);
   const horasRef = useRef(null);
 
-  const horasDisponibles = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+  // Deshabilita días bloqueados y fines de semana
+  const tileDisabled = ({ date }) => {
+    const day = date.getDay();
+    if (day === 0 || day === 6) return true;
+    return diasBloqueados.some(
+      ([y, m, d]) =>
+        date.getFullYear() === y &&
+        date.getMonth() === m - 1 &&
+        date.getDate() === d
+    );
+  };
 
-  // Redirige a WhatsApp con fecha formateada en español y la hora elegida
+  // Deshabilita horas pasadas si el día es hoy
+  const getHorasDisponibles = () => {
+    if (!fechaSeleccionada) return horasDisponibles;
+    const hoy = new Date();
+    const esHoy =
+      fechaSeleccionada.getDate() === hoy.getDate() &&
+      fechaSeleccionada.getMonth() === hoy.getMonth() &&
+      fechaSeleccionada.getFullYear() === hoy.getFullYear();
+    if (!esHoy) return horasDisponibles;
+    const horaActual = hoy.getHours() + hoy.getMinutes() / 60;
+    return horasDisponibles.filter((h) => {
+      const [hh, mm] = h.split(":").map(Number);
+      return hh + mm / 60 > horaActual + 0.1;
+    });
+  };
+
+  // Redirige a WhatsApp con feedback visual
   const redirigirWhatsapp = () => {
-    const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-    const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
-    const mensaje = `Hola! Quiero reservar un turno el ${diaTexto} a las ${horaSeleccionada}.`;
-    const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setConfirmado(true);
+      const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
+      const mensaje = `Hola! Quiero reservar un turno el ${diaTexto} a las ${horaSeleccionada}.`;
+      const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+      setTimeout(() => setConfirmado(false), 2500);
+    }, 900);
   };
 
   // Efecto: cuando cambia fecha, limpiar hora y hacer scroll
   useEffect(() => {
-    setHoraSeleccionada(''); // limpiamos hora al cambiar fecha
+    setHoraSeleccionada('');
     if (fechaSeleccionada && horasRef.current) {
       horasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [fechaSeleccionada]);
 
+  // Guardar selección en localStorage
+  useEffect(() => {
+    if (fechaSeleccionada) {
+      localStorage.setItem('turno_fecha', fechaSeleccionada.toISOString());
+    }
+    if (horaSeleccionada) {
+      localStorage.setItem('turno_hora', horaSeleccionada);
+    }
+  }, [fechaSeleccionada, horaSeleccionada]);
+
+  useEffect(() => {
+    const fecha = localStorage.getItem('turno_fecha');
+    const hora = localStorage.getItem('turno_hora');
+    if (fecha) setFechaSeleccionada(new Date(fecha));
+    if (hora) setHoraSeleccionada(hora);
+  }, []);
+
   return (
-    <div className="w-full px-4 sm:max-w-md mx-auto mt-8 p-6 bg-[#F7E3D8] border-2 border-[#D4AF37] rounded-2xl shadow-lg transition-transform duration-300 hover:shadow-2xl hover:scale-[1.01] relative">
+    <motion.div
+      className="w-full px-4 sm:max-w-md mx-auto mt-8 p-6 bg-[#F7E3D8] border-2 border-[#D4AF37] rounded-2xl shadow-lg transition-transform duration-300 hover:shadow-2xl hover:scale-[1.01] relative"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+    >
       {/* Imán o pin superior */}
       <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#D4A29E] rounded-full shadow-md border-4 border-white z-10"></div>
-
-      <h2 className="text-2xl font-bold mb-6 text-center text-[#333]">📅 Reservá tu turno</h2>
-
+      <div className="flex items-center justify-center gap-2 mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d4af37" className="w-7 h-7"><circle cx="12" cy="12" r="9" stroke="#d4af37" strokeWidth="2" fill="#fff8e1" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7v5l3 2" /></svg>
+        <h2 className="text-2xl font-bold text-center text-[#b76e79] tracking-wide drop-shadow-sm">Reservá tu turno</h2>
+      </div>
+      <p className="text-center text-[#4E3B1C] text-sm mb-4">Seleccioná el día y la hora, luego confirmá tu turno por WhatsApp.</p>
       {/* Calendario con estilos personalizados */}
-      <div className="rounded-xl overflow-hidden bg-white shadow-inner p-2 border-2 border-[#D4AF37] mb-4">
+      <motion.div
+        className="rounded-xl overflow-hidden bg-white shadow-inner p-2 border-2 border-[#D4AF37] mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+      >
         <Calendar
           onChange={(date) => setFechaSeleccionada(date)}
           value={fechaSeleccionada}
           minDate={new Date()}
-          tileDisabled={({ date }) => {
-            const day = date.getDay(); // 0 = domingo, 6 = sábado
-            return day === 0 || day === 6;
-          }}
+          tileDisabled={tileDisabled}
           className={`!border-none
             [&_.react-calendar__tile]:p-3
             [&_.react-calendar__tile]:rounded-lg
@@ -60,55 +128,96 @@ const TurnoCalendar = () => {
             [&_.react-calendar__month-view__weekdays]:text-[#8C7A58]
             [&_.react-calendar__month-view__weekdays]:uppercase`}
         />
-      </div>
-
-      {/* Mostrar día seleccionado */}
-      {fechaSeleccionada && (
-        <p className="text-center text-[#4E3B1C] font-medium mb-2">
-          Día seleccionado: {fechaSeleccionada.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </p>
-      )}
-
+      </motion.div>
+      {/* Mostrar día y hora seleccionados */}
+      <AnimatePresence>
+        {(fechaSeleccionada || horaSeleccionada) && (
+          <motion.div
+            key="resumen"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="text-center mb-2"
+            aria-live="polite"
+          >
+            {fechaSeleccionada && (
+              <span className="inline-block bg-[#fff8e1] text-[#b76e79] px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-1">
+                {fechaSeleccionada.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            )}
+            {horaSeleccionada && (
+              <span className="inline-block bg-[#d4af37]/90 text-white px-3 py-1 rounded-full text-sm font-semibold mb-1">
+                {horaSeleccionada} hs
+              </span>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Selección de hora usando una grilla de botones */}
       <div ref={horasRef}>
         {fechaSeleccionada && (
-          <div className="mt-4 transition-opacity duration-500 ease-in delay-100">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-4"
+          >
             <label className="block mb-2 font-semibold text-[#4E3B1C]">🕐 Elegí la hora:</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {horasDisponibles.map((hora) => (
+              {getHorasDisponibles().map((hora) => (
                 <button
                   key={hora}
                   aria-label={`Seleccionar hora ${hora}`}
                   onClick={() => setHoraSeleccionada(hora)}
-                  className={`py-2 rounded-xl text-center font-medium transition
+                  disabled={false}
+                  className={`py-2 rounded-xl text-center font-medium transition focus:ring-2 focus:ring-[#d4af37] focus:outline-none
                     ${horaSeleccionada === hora
-                      ? 'bg-[#D4AF37] text-white'
+                      ? 'bg-[#D4AF37] text-white scale-105 shadow-lg'
                       : 'bg-white text-[#333] border border-[#D4AF37] hover:bg-[#FCECE6]'
                     }`}
                 >
                   {hora}
                 </button>
               ))}
+              {getHorasDisponibles().length === 0 && (
+                <span className="col-span-2 sm:col-span-3 text-[#b76e79] text-sm mt-2">No hay horarios disponibles para este día.</span>
+              )}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-
       {/* Botón de confirmación */}
-      <button
+      <motion.button
         aria-label="Confirmar turno y abrir WhatsApp"
-        disabled={!fechaSeleccionada || !horaSeleccionada}
+        disabled={!fechaSeleccionada || !horaSeleccionada || loading}
         onClick={redirigirWhatsapp}
         className={`
-          w-full mt-6 py-3 rounded-xl font-semibold transition transform
-          ${fechaSeleccionada && horaSeleccionada
-            ? 'bg-[#D4AF37] hover:bg-[#B8912B] text-white shadow-md hover:scale-105 delay-200'
+          w-full mt-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition transform
+          ${fechaSeleccionada && horaSeleccionada && !loading
+            ? 'bg-[#D4AF37] hover:bg-[#B8912B] text-white shadow-md hover:scale-105 delay-200 animate-pulse'
             : 'bg-gray-300 text-gray-600 cursor-not-allowed'
           }`}
+        whileTap={{ scale: 0.97 }}
       >
-        ✅ Confirmar turno por WhatsApp
-      </button>
-    </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6"><path d="M20.52 3.48A12 12 0 0 0 3.48 20.52l-1.09 4.01a1 1 0 0 0 1.23 1.23l4.01-1.09A12 12 0 1 0 20.52 3.48ZM12 22a10 10 0 1 1 10-10A10 10 0 0 1 12 22Zm5.07-7.75c-.28-.14-1.65-.81-1.9-.9s-.44-.14-.62.14-.71.9-.87 1.09-.32.21-.6.07a7.94 7.94 0 0 1-2.34-1.44 8.82 8.82 0 0 1-1.63-2c-.17-.28 0-.43.13-.57.13-.13.28-.34.42-.51a.51.51 0 0 0 .07-.53c-.07-.14-.62-1.49-.85-2.05-.22-.53-.45-.46-.62-.47h-.53a1 1 0 0 0-.72.34A2.93 2.93 0 0 0 7 10.5a5.08 5.08 0 0 0 1.09 2.77c.14.19 2.13 3.25 5.18 4.42.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32s-.26-.19-.54-.33Z"/></svg>
+        {loading ? 'Enviando...' : 'Confirmar turno por WhatsApp'}
+      </motion.button>
+      {/* Mensaje de éxito */}
+      <AnimatePresence>
+        {confirmado && (
+          <motion.div
+            key="confirmado"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="mt-4 text-center text-[#25D366] font-bold text-lg animate-bounce"
+            aria-live="polite"
+          >
+            ¡Turno enviado a WhatsApp!
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
