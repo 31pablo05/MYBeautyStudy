@@ -31,14 +31,15 @@ const Hero = () => {
         <link rel="preload" as="image" href="/assets/images/LOGO ROSEGOLD.webp" type="image/webp" />
       </Helmet>
       <section
-        className="hero-section relative w-full min-h-[92vh] flex flex-col justify-between bg-no-repeat bg-center bg-cover overflow-hidden"
+        id="hero-section"
+        className="hero-section relative w-full min-h-[92vh] flex flex-col justify-center bg-no-repeat bg-center bg-cover overflow-hidden"
         style={{
           backgroundImage:
-            `linear-gradient(120deg, rgba(247,202,201,0.92) 0%, rgba(251,213,189,0.85) 50%, rgba(241,169,160,0.85) 100%), url(${fondo})`
+            `linear-gradient(120deg, rgba(247,202,201,0.92) 0%, rgba(251,213,189,0.85) 10%, rgba(241,169,160,0.85) 40%), url(${fondo})`
         }}
       >
         {/* Logo centrado verticalmente */}
-        <div className="w-full flex justify-center items-center" style={{ minHeight: '220px', marginTop: '240px' }}>
+        <div className="w-full flex justify-center items-center pt-32 md:pt-20">
           <motion.img
             src={logo}
             alt="MYBeautyStudy Logo"
@@ -46,7 +47,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            style={{ filter: "drop-shadow(0 0 24px #d4af37)" }}
+            style={{ filter: "drop-shadow(0 0 2px #d4af37)" }}
           />
         </div>
         {/* Contenido principal */}

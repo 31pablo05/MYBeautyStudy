@@ -1,5 +1,5 @@
 // App.jsx
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
@@ -19,6 +19,16 @@ const DetalleServicio = lazy(() =>
 );
 
 function App() {
+  // Forzar scroll al tope al cargar la página y desactivar scroll restoration del navegador
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }, 100);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Helmet>

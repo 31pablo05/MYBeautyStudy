@@ -66,6 +66,22 @@ const Navbar = () => {
       : 'bg-gradient-to-r from-[#B76E79]/60 to-[#eac9c1]/60'
   }`;
 
+  const handleNavClick = (path) => {
+    setIsOpen(false);
+    if (path === '/') {
+      // Esperar a que el router termine el cambio de ruta
+      setTimeout(() => {
+        // Buscar el elemento principal del home (Hero)
+        const hero = document.getElementById('hero-section');
+        if (hero) {
+          hero.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 200);
+    }
+  };
+
   return (
     <nav className={navClasses} role="navigation" aria-label="Navegación principal">
       <div className="container mx-auto flex justify-between items-center">
@@ -95,6 +111,7 @@ const Navbar = () => {
             <li key={idx}>
               <Link
                 to={item.path}
+                onClick={() => handleNavClick(item.path)}
                 className={`text-white font-semibold text-lg transition-colors hover:text-[#d4af37] ${
                   location.pathname === item.path ? 'underline underline-offset-4 text-[#d4af37]' : ''
                 }`}
@@ -127,7 +144,7 @@ const Navbar = () => {
             <li key={idx}>
               <Link
                 to={item.path}
-                onClick={() => setIsOpen(false)}
+                onClick={() => handleNavClick(item.path)}
                 className={`block text-lg font-semibold transition-colors hover:text-[#d4af37] ${
                   location.pathname === item.path ? 'text-[#d4af37] underline underline-offset-4' : 'text-neutral-700'
                 }`}
