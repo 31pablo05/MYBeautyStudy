@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const faqData = [
   {
@@ -63,22 +64,21 @@ const ServicesFAQ = () => {
 
   return (
     <section className="max-w-4xl mx-auto py-12 px-4">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 inline-block relative
-          after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-full after:h-1 
-          after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600
-          animate-slideFadeIn
-      ">
+      <h2 className="text-3xl font-extrabold text-[#b76e79] mb-10 inline-block relative drop-shadow-gold">
         Preguntas Frecuentes sobre Nuestros Servicios
       </h2>
 
       {faqData.map((group, groupIndex) => (
         <div
           key={group.category}
-          className="mb-8 animate-fade-in"
+          className="mb-10 animate-fade-in-up"
           style={{ animationDelay: `${groupIndex * 0.2}s`, animationFillMode: "both" }}
         >
-          <h3 className="text-xl font-semibold text-pink-600 mb-4">{group.category}</h3>
-          <div className="space-y-2">
+          <h3 className="text-xl font-bold text-yellow-700 mb-5 flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-400 via-pink-300 to-yellow-600 inline-block animate-gold-glow2" />
+            {group.category}
+          </h3>
+          <div className="space-y-4">
             {group.questions.map((item, i) => {
               const index = `${groupIndex}-${i}`;
               const isOpen = openIndex === index;
@@ -86,21 +86,30 @@ const ServicesFAQ = () => {
               return (
                 <div
                   key={index}
-                  className={`border rounded-md p-4 cursor-pointer bg-white shadow-sm transition 
-                    hover:shadow-md transform hover:-translate-y-1 duration-300`}
+                  className={`border-2 rounded-xl p-5 cursor-pointer bg-white shadow-gold transition-all duration-300 hover:shadow-lg hover:border-yellow-400 group relative animate-fade-in-up`}
+                  style={{ animationDelay: `${i * 0.07}s`, animationFillMode: "both" }}
                   onClick={() => toggle(index)}
+                  tabIndex={0}
+                  role="button"
+                  aria-expanded={isOpen}
+                  aria-label={`Pregunta frecuente: ${item.q}`}
+                  onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && toggle(index)}
                 >
-                  <p className="font-medium text-gray-800 flex justify-between items-center">
-                    {item.q}
-                    <span className="text-pink-500 text-2xl select-none">{isOpen ? "−" : "+"}</span>
-                  </p>
+                  <div className="flex justify-between items-center">
+                    <p className="font-semibold text-[#b76e79] text-lg text-left">
+                      {item.q}
+                    </p>
+                    <span className="ml-4 text-yellow-500 text-2xl transition-transform duration-300 group-hover:scale-125">
+                      {isOpen ? <FaChevronUp className="animate-chevron" /> : <FaChevronDown className="animate-chevron" />}
+                    </span>
+                  </div>
                   <div
-                    className={`text-gray-600 mt-2 overflow-hidden transition-[max-height] duration-500 ease-in-out`}
+                    className={`text-gray-700 mt-2 overflow-hidden transition-[max-height] duration-500 ease-in-out text-left`}
                     style={{
                       maxHeight: isOpen ? "200px" : "0px",
                     }}
                   >
-                    <p className="pt-2">{item.a}</p>
+                    <p className="pt-2 leading-relaxed">{item.a}</p>
                   </div>
                 </div>
               );
@@ -108,6 +117,27 @@ const ServicesFAQ = () => {
           </div>
         </div>
       ))}
+      <style>{`
+        .shadow-gold { box-shadow: 0 2px 12px 0 #d4af3740, 0 0 0 2px #d4af37; }
+        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
+        .animate-gold-glow2 {
+          animation: gold-glow2 3.2s infinite alternate;
+        }
+        @keyframes gold-glow2 {
+          0% { filter: drop-shadow(0 0 0px #e6b7c1cc); }
+          100% { filter: drop-shadow(0 0 10px #e6b7c1cc); }
+        }
+        @keyframes fade-in-up {
+          0% { opacity: 0; transform: translateY(40px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 1s;
+        }
+        .animate-chevron {
+          transition: transform 0.3s;
+        }
+      `}</style>
     </section>
   );
 };
