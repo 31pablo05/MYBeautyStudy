@@ -1,40 +1,44 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+// Galerías de imágenes por servicio
+const galeriaServicios = {
+  pestanas: [
+    "/assets/images/pestañas/MYBeauty1.webp",
+    "/assets/images/pestañas/MYBeauty2.webp",
+    "/assets/images/pestañas/MYBeauty4.webp",
+    "/assets/images/pestañas/pestañas.webp",
+  ],
+  cejas: [
+    "/assets/images/cejas/MYBeauty3.webp",
+    "/assets/images/cejas/MYBeauty5.webp",
+    "/assets/images/cejas/MYBeauty6.webp",
+    "/assets/images/cejas/MYBeauty7.webp",
+  ],
+  "depilacion-laser": [
+    "/assets/images/depilacion/maquina.webp",
+    "/assets/images/depilacion/depilacionLaser.webp",
+    "/assets/images/depilacion/depilacion.webp",
+  ],
+  "gift-cards": [
+    "/assets/images/GIFTCARDMelinaYancan.webp",
+    "/assets/images/logotipo.webp",
+  ],
+};
+
+const nombresServicios = {
+  pestanas: "Pestañas",
+  cejas: "Cejas",
+  "depilacion-laser": "Depilación Láser",
+  "gift-cards": "Tarjetas de Regalo",
+};
+
 const DetalleServicio = () => {
-  const { servicioId } = useParams(); // Obtener el id del servicio desde la URL
+  const { servicioId } = useParams();
+  const imagenes = galeriaServicios[servicioId];
+  const nombre = nombresServicios[servicioId];
 
-  // Servicios actualizados
-  const servicio = {
-    "pestanas": {
-      nombre: "Pestañas",
-      descripcion: "Realzamos tu mirada con nuestros servicios especializados en extensión de pestañas.",
-      detalles: "Ofrecemos diversas opciones de extensión para que elijas la que mejor se adapte a tu estilo.",
-      precio: "$40"
-    },
-    "cejas": {
-      nombre: "Cejas",
-      descripcion: "Dale forma perfecta a tus cejas con nuestros servicios de diseño y depilación.",
-      detalles: "Desde depilación con cera hasta diseño con hilo, realzamos tus cejas para un look natural.",
-      precio: "$25"
-    },
-    "depilacion-laser": {
-      nombre: "Depilación Láser",
-      descripcion: "Deshazte del vello de manera permanente con nuestra depilación láser segura y eficaz.",
-      detalles: "Nuestro tratamiento de depilación láser es rápido, eficiente y garantiza resultados duraderos.",
-      precio: "$100"
-    },
-    "Tarjetas de regalo": {
-      nombre: "gift-cards",
-      descripcion: "Regalá belleza con nuestras tarjetas de regalo personalizadas.",
-      detalles: "Nuestras gift cards son el regalo perfecto para cualquier ocasión, personalizables y válidas para todos nuestros servicios.",
-      precio: "$50"
-    }
-  };
-
-  const servicioSeleccionado = servicio[servicioId];
-
-  if (!servicioSeleccionado) {
+  if (!imagenes) {
     return (
       <div className="text-center py-16">
         <h2 className="text-2xl font-bold text-gray-800">Servicio no encontrado</h2>
@@ -43,13 +47,41 @@ const DetalleServicio = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">{servicioSeleccionado.nombre}</h2>
-        <p className="text-lg text-gray-600 mb-6">{servicioSeleccionado.descripcion}</p>
-        <p className="text-lg text-gray-600 mb-4">{servicioSeleccionado.detalles}</p>
-        <p className="text-xl font-semibold text-gray-800">Precio: {servicioSeleccionado.precio}</p>
+    <section className="py-16 bg-gray-50 min-h-[60vh]">
+      <div className="max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#b76e79] mb-10 text-center drop-shadow-gold">
+          Galería de {nombre}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+          {imagenes.map((img, idx) => (
+            <div
+              key={idx}
+              className="relative rounded-2xl overflow-hidden shadow-gold group animate-fade-in-up"
+              style={{ animationDelay: `${idx * 0.08}s`, animationFillMode: "both" }}
+            >
+              <img
+                src={img}
+                alt={`${nombre} ${idx + 1}`}
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105 group-hover:shadow-2xl"
+                loading="lazy"
+              />
+              {/* Overlay dorado al hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/0 via-yellow-100/30 to-yellow-200/40 opacity-0 group-hover:opacity-80 transition-opacity duration-500 z-10 pointer-events-none" />
+            </div>
+          ))}
+        </div>
       </div>
+      <style>{`
+        .shadow-gold { box-shadow: 0 2px 12px 0 #d4af3740, 0 0 0 2px #d4af37; }
+        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
+        @keyframes fade-in-up {
+          0% { opacity: 0; transform: translateY(40px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 1s;
+        }
+      `}</style>
     </section>
   );
 };
