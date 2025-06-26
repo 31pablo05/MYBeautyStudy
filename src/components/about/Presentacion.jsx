@@ -14,14 +14,13 @@ const Presentacion = () => {
     <section className="py-20 bg-pink-50">
       <div className="max-w-5xl mx-auto px-4 text-center">
         <motion.h2
-          className="relative inline-flex items-center gap-3 text-3xl md:text-4xl font-extrabold text-[#b76e79] mb-10 mt-10 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-yellow-400 after:via-yellow-500 after:to-yellow-600 after:rounded-full after:mt-2 drop-shadow-gold"
+          className="relative inline-block text-3xl md:text-4xl font-extrabold text-[#b76e79] mb-10 mt-10 drop-shadow-gold"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          <FaStar className="text-yellow-400 text-2xl md:text-3xl drop-shadow-gold" />
-          Conocé a <span className="text-pink-500">Melina Yancan</span>
+          Conocé a <span className="text-pink-500 font-black">Melina Yancan</span>
         </motion.h2>
 
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 mt-6">
