@@ -65,7 +65,7 @@ const Services = () => {
             href="https://wa.me/549XXXXXXXXXX"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white text-lg font-bold px-8 py-4 rounded-full shadow-gold border-2 border-yellow-400 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-200 animate-gold-glow drop-shadow-gold animate-fade-in-up delay-200"
+            className="inline-flex items-center gap-3 bg-rose-300 hover:bg-green-600 text-white text-lg font-bold px-8 py-4 rounded-full shadow-gold border-2 border-yellow-400 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-200 animate-gold-glow drop-shadow-gold animate-fade-in-up delay-200"
             aria-label="Solicitar turno por WhatsApp"
           >
             <FaWhatsapp className="text-2xl animate-gold-glow" />

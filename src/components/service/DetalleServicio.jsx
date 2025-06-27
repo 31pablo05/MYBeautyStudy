@@ -21,8 +21,8 @@ const galeriaServicios = {
     "/assets/images/depilacion/depilacion.webp",
   ],
   "gift-cards": [
-    "/assets/images/GIFTCARDMelinaYancan.webp",
-    "/assets/images/logotipo.webp",
+    "/assets/images/Tarjeta Horizontal Gift Card Organico Rosa.webp",
+    "/assets/images/giftpromo.webp",
   ],
 };
 

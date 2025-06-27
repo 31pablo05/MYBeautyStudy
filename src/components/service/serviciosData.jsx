@@ -29,7 +29,7 @@ const servicios = [
     descripcion:
       "Regalá belleza con nuestras tarjetas de regalo personalizadas, perfectas para cualquier ocasión.",
     link: "/services/gift-cards",
-    imagen: "/assets/images/GIFTCARDMelinaYancan.webp",
+    imagen: "/assets/images/giftpromo.webp",
   },
 ];
 

@@ -7,6 +7,8 @@ import CursosDictados from "../components/home/CursosDictados";
 import InstagramFeed from "../components/home/InstagramFeed";
 import TurnoCalendar from "../components/home/TurnoCalendar";
 import BannerHorarios from "../components/home/BannerHorarios";
+import MapaUbicacion from '../components/contact/MapaUbicacion';
+
 const Home = () => {
   return (
     <>
@@ -39,6 +41,10 @@ const Home = () => {
         <ServiciosDestacados />
         <CursosDictados />
         <InstagramFeed />
+        {/* Mapa de ubicación debajo de InstagramFeed */}
+        <div className="mt-12 flex justify-center">
+          <MapaUbicacion />
+        </div>
       </div>
     </>
   );

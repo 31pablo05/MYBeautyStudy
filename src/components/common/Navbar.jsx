@@ -56,7 +56,6 @@ const Navbar = () => {
     { name: 'Inicio', path: '/' },
     { name: 'Sobre mí', path: '/about' },
     { name: 'Servicios', path: '/services' },
-    { name: 'Galería', path: '/galeria' },
     { name: 'Contacto', path: '/contact' },
   ];
 

@@ -150,19 +150,19 @@ const InstagramFeed = () => {
           ))}
         </div>
       </motion.div>
-      {/* Botón premium sticky/floating en mobile */}
+      {/* Botón premium estático en mobile */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}
         viewport={{ once: true }}
-        className="z-20"
+        className="z-20 flex justify-center mt-8"
       >
         <a
           href="https://www.instagram.com/meliii_lash/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white font-semibold shadow-gold hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 animate-gold-glow fixed md:static bottom-6 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:left-auto"
+          className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white font-semibold shadow-gold hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 animate-gold-glow"
           aria-label="Ver perfil de Instagram de MYBeautyStudy"
         >
           <svg
