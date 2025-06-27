@@ -43,14 +43,17 @@ const Historia = () => {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  // Autoplay (pausa si el usuario interactúa)
+  // Autoplay solo para imágenes
   useEffect(() => {
     if (paused) return;
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [paused]);
+    if (slides[current].type === "image") {
+      const interval = setInterval(() => {
+        setCurrent((prev) => (prev + 1) % slides.length);
+      }, 6000);
+      return () => clearInterval(interval);
+    }
+    // Si es video, no hacer autoplay, esperar onEnded
+  }, [paused, current]);
 
   // Ir a slide por bullet
   const goToSlide = (idx) => {
@@ -58,6 +61,13 @@ const Historia = () => {
     setPaused(true);
     clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setPaused(false), 8000);
+  };
+
+  // Avanzar al siguiente slide cuando termina el video
+  const handleVideoEnded = () => {
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 800); // Pequeña pausa para UX
   };
 
   return (
@@ -89,13 +99,14 @@ const Historia = () => {
                 <ReactPlayer
                   url={slides[current].src}
                   playing
-                  loop
+                  loop={false}
                   muted
                   controls={false}
                   width="100%"
                   height="100%"
                   className="react-player"
                   style={{ animation: 'fadeinSlide 0.7s' }}
+                  onEnded={handleVideoEnded}
                 />
               )
             )}
