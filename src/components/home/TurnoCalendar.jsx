@@ -9,7 +9,21 @@ const diasBloqueados = [
   // [2025, 6, 29],
 ];
 
-const horasDisponibles = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+// Genera array de horas en string HH:MM dado un rango
+function generarHoras(inicio, fin) {
+  const horas = [];
+  let [h, m] = inicio.split(':').map(Number);
+  const [hFin, mFin] = fin.split(':').map(Number);
+  while (h < hFin || (h === hFin && m < mFin)) {
+    horas.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
+    m += 30;
+    if (m >= 60) { h++; m = 0; }
+  }
+  return horas;
+}
+
+const horasLV = [...generarHoras('09:00', '11:30'), ...generarHoras('14:00', '20:30')];
+const horasSab = generarHoras('09:00', '13:30');
 
 const TurnoCalendar = () => {
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
@@ -18,10 +32,10 @@ const TurnoCalendar = () => {
   const [loading, setLoading] = useState(false);
   const horasRef = useRef(null);
 
-  // Deshabilita días bloqueados y fines de semana
+  // Deshabilita días bloqueados y domingos
   const tileDisabled = ({ date }) => {
     const day = date.getDay();
-    if (day === 0 || day === 6) return true;
+    if (day === 0) return true; // Domingo
     return diasBloqueados.some(
       ([y, m, d]) =>
         date.getFullYear() === y &&
@@ -30,17 +44,30 @@ const TurnoCalendar = () => {
     );
   };
 
-  // Deshabilita horas pasadas si el día es hoy
+  // Devuelve las horas disponibles según el día
   const getHorasDisponibles = () => {
-    if (!fechaSeleccionada) return horasDisponibles;
+    if (!fechaSeleccionada) return [];
+    const day = fechaSeleccionada.getDay();
+    // Domingo: cerrado
+    if (day === 0) return [];
+    // Sábado
+    if (day === 6) return horasSab;
+    // Lunes a viernes
+    return horasLV;
+  };
+
+  // Deshabilita horas pasadas si el día es hoy
+  const getHorasDisponiblesHoy = () => {
+    const horas = getHorasDisponibles();
+    if (!fechaSeleccionada) return horas;
     const hoy = new Date();
     const esHoy =
       fechaSeleccionada.getDate() === hoy.getDate() &&
       fechaSeleccionada.getMonth() === hoy.getMonth() &&
       fechaSeleccionada.getFullYear() === hoy.getFullYear();
-    if (!esHoy) return horasDisponibles;
+    if (!esHoy) return horas;
     const horaActual = hoy.getHours() + hoy.getMinutes() / 60;
-    return horasDisponibles.filter((h) => {
+    return horas.filter((h) => {
       const [hh, mm] = h.split(":").map(Number);
       return hh + mm / 60 > horaActual + 0.1;
     });
@@ -164,7 +191,7 @@ const TurnoCalendar = () => {
           >
             <label className="block mb-2 font-semibold text-[#4E3B1C]">🕐 Elegí la hora:</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {getHorasDisponibles().map((hora) => (
+              {getHorasDisponiblesHoy().map((hora) => (
                 <button
                   key={hora}
                   aria-label={`Seleccionar hora ${hora}`}
@@ -179,7 +206,7 @@ const TurnoCalendar = () => {
                   {hora}
                 </button>
               ))}
-              {getHorasDisponibles().length === 0 && (
+              {getHorasDisponiblesHoy().length === 0 && (
                 <span className="col-span-2 sm:col-span-3 text-[#b76e79] text-sm mt-2">No hay horarios disponibles para este día.</span>
               )}
             </div>
