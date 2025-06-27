@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const slides = [
   { type: "image", src: "/assets/images/estudio.webp", alt: "Estudio 1" },
-  { type: "video", src: "/assets/videos/competencia.mp4" },
+  { type: "video", src: "/assets/videos/certimeli.mp4" },
   { type: "video", src: "/assets/videos/videodepilacion.mp4", alt: "Estudio 3" },
 ];
 
