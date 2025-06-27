@@ -40,6 +40,37 @@ function App() {
           name="keywords"
           content="estética Trelew, cejas, pestañas, depilación láser, belleza, lifting de pestañas, diseño de cejas"
         />
+        {/* SEO: Open Graph para compartir en redes */}
+        <meta property="og:title" content="MyBeautyStudy | Estética en Trelew" />
+        <meta property="og:description" content="MyBeautyStudy ofrece servicios profesionales de cejas, pestañas y depilación láser en Trelew. Turnos rápidos y atención personalizada." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://my-beauty-study.vercel.app/" />
+        <meta property="og:image" content="/assets/images/logotipo.webp" />
+        {/* SEO: Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="MyBeautyStudy | Estética en Trelew" />
+        <meta name="twitter:description" content="MyBeautyStudy ofrece servicios profesionales de cejas, pestañas y depilación láser en Trelew. Turnos rápidos y atención personalizada." />
+        <meta name="twitter:image" content="/assets/images/logotipo.webp" />
+        {/* SEO: Canonical */}
+        <link rel="canonical" href="https://my-beauty-study.vercel.app/" />
+        {/* SEO: Local Business (JSON-LD) */}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "BeautySalon",
+            "name": "MyBeautyStudy",
+            "image": "https://my-beauty-study.vercel.app/assets/images/logotipo.webp",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Rivadavia 519, 1er piso",
+              "addressLocality": "Trelew",
+              "addressRegion": "Chubut",
+              "addressCountry": "AR"
+            },
+            "url": "https://my-beauty-study.vercel.app/",
+            "telephone": "+54 9 2804 034308"
+          }
+        `}</script>
       </Helmet>
 
       <ScrollToTop />

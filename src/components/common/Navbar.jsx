@@ -82,8 +82,28 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={navClasses} role="navigation" aria-label="Navegación principal">
+    <nav className={navClasses} role="navigation" aria-label="Menú principal de navegación">
+      {/* SEO: Local Business (JSON-LD) */}
+      <script type="application/ld+json">{`
+        {
+          "@context": "https://schema.org",
+          "@type": "BeautySalon",
+          "name": "MyBeautyStudy",
+          "image": "https://my-beauty-study.vercel.app/assets/images/logotipo.webp",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rivadavia 519, 1er piso",
+            "addressLocality": "Trelew",
+            "addressRegion": "Chubut",
+            "addressCountry": "AR"
+          },
+          "url": "https://my-beauty-study.vercel.app/",
+          "telephone": "+54 9 2804 034308"
+        }
+      `}</script>
       <div className="container mx-auto flex justify-between items-center">
+        {/* Logo eliminado para simplificar el Navbar */}
+        {/* Botón menú móvil */}
         <div className="md:hidden z-50">
           <button
             onClick={toggleMenu}
@@ -93,21 +113,20 @@ const Navbar = () => {
             aria-controls="mobile-menu"
           >
             {isOpen ? (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
         </div>
-
         {/* Escritorio */}
-        <ul className="hidden md:flex space-x-6 ml-auto">
+        <ul className="hidden md:flex space-x-6 ml-auto" role="menubar">
           {navLinks.map((item, idx) => (
-            <li key={idx}>
+            <li key={idx} role="none">
               <Link
                 to={item.path}
                 onClick={() => handleNavClick(item.path)}
@@ -115,6 +134,7 @@ const Navbar = () => {
                   location.pathname === item.path ? 'underline underline-offset-4 text-[#d4af37]' : ''
                 }`}
                 aria-current={location.pathname === item.path ? 'page' : undefined}
+                role="menuitem"
               >
                 {item.name}
               </Link>
@@ -122,21 +142,22 @@ const Navbar = () => {
           ))}
         </ul>
       </div>
-
       {/* Overlay oscuro */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 transition-opacity duration-300 animate-fadeIn"
           onClick={toggleMenu}
+          aria-hidden="true"
         />
       )}
-
       {/* Menú móvil */}
       <div
         id="mobile-menu"
         className={`md:hidden fixed top-16 left-0 right-0 bg-white text-neutral-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0 pointer-events-none'
         }`}
+        role="menu"
+        aria-label="Menú de navegación móvil"
       >
         <ul className="px-6 py-4 space-y-4">
           {navLinks.map((item, idx) => (
@@ -148,13 +169,13 @@ const Navbar = () => {
                   location.pathname === item.path ? 'text-[#d4af37] underline underline-offset-4' : 'text-neutral-700'
                 }`}
                 aria-current={location.pathname === item.path ? 'page' : undefined}
+                role="menuitem"
               >
                 {item.name}
               </Link>
             </li>
           ))}
         </ul>
-
         {/* Redes Sociales */}
         <div className="flex justify-start gap-4 mt-6 px-6">
           {socialLinks.map((link, idx) => (

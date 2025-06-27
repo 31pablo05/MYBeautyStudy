@@ -35,13 +35,31 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white mt-40 py-16 md:py-24 relative overflow-hidden animate-footer-fadein">
+    <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white mt-40 py-16 md:py-24 relative overflow-hidden animate-footer-fadein" role="contentinfo" aria-label="Pie de página con información de contacto y derechos">
+      {/* SEO: Local Business (JSON-LD) */}
+      <script type="application/ld+json">{`
+        {
+          "@context": "https://schema.org",
+          "@type": "BeautySalon",
+          "name": "MyBeautyStudy",
+          "image": "https://my-beauty-study.vercel.app/assets/images/logotipo.webp",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rivadavia 519, 1er piso",
+            "addressLocality": "Trelew",
+            "addressRegion": "Chubut",
+            "addressCountry": "AR"
+          },
+          "url": "https://my-beauty-study.vercel.app/",
+          "telephone": "+54 9 2804 034308"
+        }
+      `}</script>
       {/* Fondo textura premium con overlay para contraste */}
       <div className="absolute inset-0 bg-[url('/assets/images/fondoform.webp')] bg-cover bg-center opacity-10 pointer-events-none z-0" aria-hidden="true" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#fffbe6]/90 via-[#eac9c1]/80 to-[#d4af37]/80 z-0" aria-hidden="true" />
       <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center relative z-10">
         {/* DERECHA - Redes sociales (orden móvil: primero) */}
-        <div className="flex space-x-6 order-1 sm:order-3 mb-6 sm:mb-0">
+        <nav className="flex space-x-6 order-1 sm:order-3 mb-6 sm:mb-0" aria-label="Redes sociales">
           {socialLinks.map((s, i) => (
             <a
               key={s.label}
@@ -49,7 +67,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="group transition-transform duration-300 hover:scale-110 focus:outline-none relative"
-              aria-label={s.label}
+              aria-label={`Ir a ${s.label} de MyBeautyStudy (se abre en nueva pestaña)`}
               tabIndex={0}
             >
               <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] group-hover:drop-shadow-gold group-hover:animate-bounce-gold transition-all duration-300 focus:ring-4 focus:ring-[#d4af37]/70">
@@ -61,9 +79,9 @@ const Footer = () => {
               </span>
             </a>
           ))}
-        </div>
+        </nav>
         {/* IZQUIERDA - Contacto */}
-        <div className="flex flex-col space-y-3 items-start mb-6 sm:mb-0 order-2 sm:order-1">
+        <address className="flex flex-col space-y-3 items-start mb-6 sm:mb-0 order-2 sm:order-1 not-italic" aria-label="Información de contacto">
           <div className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105">
             <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
               <FaMapMarkerAlt className="text-2xl md:text-2xl text-[#b76e79]" />
@@ -71,11 +89,11 @@ const Footer = () => {
             <span className="text-base md:text-lg font-medium text-[#7a5c2e]">Rivadavia 519 - 1er piso, Trelew, Chubut, Argentina</span>
           </div>
           <a
-            href="https://wa.me/5492804034308"
+            href="tel:+5492804034308"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105 focus:outline-none"
-            aria-label="WhatsApp: +54 9 280 403-4308"
+            aria-label="Llamar a +54 9 280 403-4308"
           >
             <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
               <FaPhone className="text-2xl md:text-2xl text-[#b76e79]" />
@@ -85,14 +103,14 @@ const Footer = () => {
           <a
             href="mailto:Meyapier.4@gmail.com"
             className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105 focus:outline-none"
-            aria-label="Email: Meyapier.4@gmail.com"
+            aria-label="Enviar correo a Meyapier.4@gmail.com"
           >
             <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
               <FaEnvelope className="text-2xl md:text-2xl text-[#b76e79]" />
             </div>
             <span className="text-base md:text-lg font-medium text-[#7a5c2e]">Meyapier.4@gmail.com</span>
           </a>
-        </div>
+        </address>
         {/* CENTRO - Derechos */}
         <div className="text-center text-[#7a5c2e] text-base md:text-lg font-semibold mb-6 sm:mb-0 order-3 sm:order-2">
           <p>&copy; <span className="inline-block animate-fadein-year font-bold text-[#d4af37] drop-shadow-gold text-lg md:text-xl">{year}</span> <span className="footer-highlight footer-highlight-white">MYBeautyStudy</span>. Todos los derechos reservados.</p>
@@ -116,7 +134,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-     
       {/* Estilos premium y animaciones */}
       <style>{`
         .shadow-gold { box-shadow: 0 2px 8px 0 #d4af3740, 0 0 0 2px #d4af37; }
