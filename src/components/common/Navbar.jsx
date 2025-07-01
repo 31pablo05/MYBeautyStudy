@@ -70,13 +70,7 @@ const Navbar = () => {
     if (path === '/') {
       // Esperar a que el router termine el cambio de ruta
       setTimeout(() => {
-        // Buscar el elemento principal del home (Hero)
-        const hero = document.getElementById('hero-section');
-        if (hero) {
-          hero.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 200);
     }
   };
