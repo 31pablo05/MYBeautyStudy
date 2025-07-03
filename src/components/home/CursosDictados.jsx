@@ -1,6 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
-import { Link } from "react-router-dom"; // al principio del archivo
+import { Link } from "react-router-dom";
+
+
+// Componente para video con poster y fade premium usando solo Tailwind y animación global
+function VideoConPoster({ url, poster, animationDelay }) {
+  const [posterVisible, setPosterVisible] = useState(true);
+  return (
+    <div
+      className={
+        `group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl border-2 border-[#D4AF37] transition-all duration-500 animate-fadeInUp`
+      }
+      style={{ animationDelay: `${animationDelay}s` }}
+    >
+      <ReactPlayer
+        url={url}
+        playing
+        controls
+        muted
+        loop
+        width="100%"
+        height="100%"
+        className="react-player group-hover:scale-105 transition-transform duration-700 ease-in-out"
+        style={{ borderRadius: "1rem", overflow: "hidden" }}
+        onReady={() => {
+          setTimeout(() => setPosterVisible(false), 300);
+        }}
+      />
+      {/* Poster con fade-out usando Tailwind y animación global */}
+      <img
+        src={poster}
+        alt="Poster del curso"
+        className={`absolute top-0 left-0 w-full h-full object-cover rounded-2xl pointer-events-none transition-opacity duration-700 ${posterVisible ? 'opacity-100' : 'opacity-0'}`}
+        style={{ zIndex: 2, borderRadius: '1rem' }}
+        draggable={false}
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+    </div>
+  );
+}
 
 const CursosDictados = () => {
   return (
@@ -37,26 +75,16 @@ const CursosDictados = () => {
             Mirá algunos momentos de nuestros cursos
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[1, 2].map((n, index) => (
-              <div
-                key={n}
-                className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl border-2 border-[#D4AF37] transition-all duration-500 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <ReactPlayer
-                  url={`/assets/videos/melicurso${n}.mp4`}
-                  controls
-                  playing
-                  muted
-                  loop
-                  width="100%"
-                  height="100%"
-                  className="react-player group-hover:scale-105 transition-transform duration-700 ease-in-out"
-                  style={{ borderRadius: "1rem", overflow: "hidden" }}
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-              </div>
-            ))}
+            <VideoConPoster
+              url="/assets/videos/melicurso1.mp4"
+              poster="/assets/images/posterComponentes/posterCurso1.webp"
+              animationDelay={0}
+            />
+            <VideoConPoster
+              url="/assets/videos/melicurso2.mp4"
+              poster="/assets/images/posterComponentes/posterCurso2.webp"
+              animationDelay={0.2}
+            />
           </div>
           <div className="mt-10 text-center">
             <Link
@@ -166,25 +194,7 @@ const CursosDictados = () => {
           </p>
         </div>
       </div>
-      {/* Estilos premium para resplandor dorado y animaciones */}
-      <style>{`
-        .shadow-gold { box-shadow: 0 2px 8px 0 #d4af3740, 0 0 0 2px #d4af37; }
-        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
-        .animate-gold-glow {
-          animation: gold-glow 2.2s infinite alternate;
-        }
-        @keyframes gold-glow {
-          0% { filter: drop-shadow(0 0 0px #d4af37cc); }
-          100% { filter: drop-shadow(0 0 12px #d4af37cc); }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 1.1s cubic-bezier(.39,.575,.565,1) both;
-        }
-        @keyframes fadeInUp {
-          0% { opacity: 0; transform: translateY(40px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      {/* Animaciones y estilos premium ahora solo en index.css y Tailwind */}
     </section>
   );
 };

@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Idioma principal -->
+    <meta name="language" content="Spanish">
+    <!-- Región geográfica -->
+    <meta name="geo.region" content="AR-CHU">
+    <meta name="geo.placename" content="Trelew">
+    <!-- Color de tema para móviles -->
+    <meta name="theme-color" content="#B76E79">
+    <!-- Apple Touch Icon para iOS -->
+    <link rel="apple-touch-icon" href="/assets/images/LOGO ROSEGOLD.webp">
    <!-- Verificación Google -->
     <meta name="google-site-verification" content="U1ysgqRd4WU3hOxGoD0f4dB7SUqvarut6JZODQsb-1M" />
     <!-- Título SEO -->
@@ -26,7 +35,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="MyBeautyStudy | Cejas y Pestañas en Trelew">
     <meta property="og:description" content="Descubrí tu mejor versión con diseño de cejas, pestañas y estética personalizada.">
-    <meta property="og:image" content="/assets/images/logotipo.webp">
+    <meta property="og:image" content="/assets/images/LOGO ROSEGOLD.webp">
     <meta property="og:url" content="https://my-beauty-study.vercel.app/">
     <meta property="og:locale" content="es_AR">
     <meta property="og:type" content="website">
@@ -40,6 +49,52 @@
 
     <!-- Canonical -->
     <link rel="canonical" href="https://my-beauty-study.vercel.app/" />
+
+    <!-- JSON-LD LocalBusiness Schema.org -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "name": "MyBeautyStudy",
+        "image": "https://my-beauty-study.vercel.app/assets/images/LOGO%20ROSEGOLD.webp",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rivadavia 519, 1er piso",
+          "addressLocality": "Trelew",
+          "addressRegion": "Chubut",
+          "postalCode": "9100",
+          "addressCountry": "AR"
+        },
+        "url": "https://my-beauty-study.vercel.app/",
+        "telephone": "+54 9 2804 034308",
+        "priceRange": "$$",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -43.2532,
+          "longitude": -65.3091
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "20:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "13:00"
+          }
+        ]
+      }
+    </script>
 
   </head>
   <body>
