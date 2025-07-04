@@ -103,7 +103,7 @@ const TurnoCalendar = () => {
         };
         const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
         // Mensaje predeterminado profesional y claro
-        const mensaje = `¡Hola! 😊\n\n¿Cómo estás? Te escribo para consultar disponibilidad de turnos. Me gustaría saber si tenés algún horario libre para el *${diaTexto}* cerca de las *${horaSeleccionada}*\n\n💅 Me interesa coordinar un servicio de belleza\n📍 Entiendo que estás en Rivadavia 519, 1er piso, Trelew\n\nSi ese día no te queda cómodo, también podríamos ver otras fechas que manejes 😉\n\n¡Muchas gracias! 🌸`;
+        const mensaje = `¡Hola! 😊\n\n¿Cómo estás? Te escribo para consultar disponibilidad de turnos. Me gustaría saber si tenés algún horario libre para el *${diaTexto}* cerca de las *${horaSeleccionada}*\n\n💅 Me interesa coordinar un servicio de belleza\n📍 Entiendo que estás en Rivadavia 519, 1er piso, Trelew😉\n\n¡Muchas gracias! 🌸`;
         const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
         // Limpiar selección después de enviar
