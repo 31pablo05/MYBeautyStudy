@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const diasBloqueados = [
   // Ejemplo: [2025, 6, 29] para 29 de junio de 2025
   // [2025, 6, 29],
+  // Aquí puedes agregar días específicos bloqueados por vacaciones o eventos particulares
 ];
 
 // Genera array de horas en string HH:MM dado un rango
@@ -65,31 +66,67 @@ const TurnoCalendar = () => {
   const getHorasDisponiblesHoy = () => {
     const horas = getHorasDisponibles();
     if (!fechaSeleccionada) return horas;
+    
     const hoy = new Date();
     const esHoy =
       fechaSeleccionada.getDate() === hoy.getDate() &&
       fechaSeleccionada.getMonth() === hoy.getMonth() &&
       fechaSeleccionada.getFullYear() === hoy.getFullYear();
+    
     if (!esHoy) return horas;
-    const horaActual = hoy.getHours() + hoy.getMinutes() / 60;
+    
+    // Agregar 1 hora de buffer para dar tiempo de preparación
+    const horaActual = hoy.getHours() + hoy.getMinutes() / 60 + 1;
     return horas.filter((h) => {
       const [hh, mm] = h.split(":").map(Number);
-      return hh + mm / 60 > horaActual + 0.1;
+      return hh + mm / 60 > horaActual;
     });
   };
 
-  // Redirige a WhatsApp con feedback visual
+  // Redirige a WhatsApp con feedback visual y validación
   const redirigirWhatsapp = () => {
+    // Validación extra
+    if (!fechaSeleccionada || !horaSeleccionada) {
+      alert('Por favor selecciona una fecha y hora válidas.');
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setConfirmado(true);
-      const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-      const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
-      const mensaje = `Hola! Quiero reservar un turno el ${diaTexto} a las ${horaSeleccionada}.`;
-      const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-      setTimeout(() => setConfirmado(false), 2500);
+      
+      try {
+        const opcionesFecha = { 
+          weekday: 'long', 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric' 
+        };
+        const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
+        const mensaje = `¡Hola! 👋 Quiero reservar un turno para el *${diaTexto}* a las *${horaSeleccionada}*. 
+
+💄 Servicio: A coordinar
+📍 Ubicación: Rivadavia 519, 1er piso, Trelew
+📞 Contacto: MyBeautyStudy
+
+¡Gracias!`;
+        
+        const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+        
+        // Limpiar selección después de enviar
+        setTimeout(() => {
+          setConfirmado(false);
+          setFechaSeleccionada(null);
+          setHoraSeleccionada('');
+          localStorage.removeItem('turno_fecha');
+          localStorage.removeItem('turno_hora');
+        }, 3000);
+      } catch (error) {
+        console.error('Error al generar el mensaje de WhatsApp:', error);
+        alert('Hubo un error al generar el mensaje. Inténtalo nuevamente.');
+      }
     }, 900);
   };
 
@@ -106,21 +143,39 @@ const TurnoCalendar = () => {
     }
   }, [fechaSeleccionada]);
 
-  // Guardar selección en localStorage
+  // Guardar selección en localStorage con validación
   useEffect(() => {
-    if (fechaSeleccionada) {
-      localStorage.setItem('turno_fecha', fechaSeleccionada.toISOString());
-    }
-    if (horaSeleccionada) {
-      localStorage.setItem('turno_hora', horaSeleccionada);
+    try {
+      if (fechaSeleccionada) {
+        localStorage.setItem('turno_fecha', fechaSeleccionada.toISOString());
+      }
+      if (horaSeleccionada) {
+        localStorage.setItem('turno_hora', horaSeleccionada);
+      }
+    } catch (error) {
+      console.warn('No se pudo guardar en localStorage:', error);
     }
   }, [fechaSeleccionada, horaSeleccionada]);
 
+  // Cargar selección desde localStorage con validación
   useEffect(() => {
-    const fecha = localStorage.getItem('turno_fecha');
-    const hora = localStorage.getItem('turno_hora');
-    if (fecha) setFechaSeleccionada(new Date(fecha));
-    if (hora) setHoraSeleccionada(hora);
+    try {
+      const fecha = localStorage.getItem('turno_fecha');
+      const hora = localStorage.getItem('turno_hora');
+      
+      if (fecha) {
+        const fechaRecuperada = new Date(fecha);
+        // Solo recuperar si la fecha es válida y futura
+        if (fechaRecuperada > new Date()) {
+          setFechaSeleccionada(fechaRecuperada);
+        }
+      }
+      if (hora) {
+        setHoraSeleccionada(hora);
+      }
+    } catch (error) {
+      console.warn('Error al cargar desde localStorage:', error);
+    }
   }, []);
 
   return (
@@ -210,18 +265,23 @@ const TurnoCalendar = () => {
                   key={hora}
                   aria-label={`Seleccionar hora ${hora}`}
                   onClick={() => setHoraSeleccionada(hora)}
-                  disabled={false}
-                  className={`py-2 rounded-xl text-center font-medium transition focus:ring-2 focus:ring-[#d4af37] focus:outline-none
+                  className={`py-2 rounded-xl text-center font-medium transition-all duration-200 focus:ring-2 focus:ring-[#d4af37] focus:outline-none
                     ${horaSeleccionada === hora
                       ? 'bg-[#D4AF37] text-white scale-105 shadow-lg'
-                      : 'bg-white text-[#333] border border-[#D4AF37] hover:bg-[#FCECE6]'
+                      : 'bg-white text-[#333] border border-[#D4AF37] hover:bg-[#FCECE6] hover:scale-102'
                     }`}
                 >
                   {hora}
                 </button>
               ))}
               {getHorasDisponiblesHoy().length === 0 && (
-                <span className="col-span-2 sm:col-span-3 text-[#b76e79] text-sm mt-2">No hay horarios disponibles para este día.</span>
+                <div className="col-span-2 sm:col-span-3 text-center p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                  <span className="text-[#b76e79] text-sm font-medium">
+                    {fechaSeleccionada?.getDay() === 0 
+                      ? "Los domingos estamos cerrados 🛌" 
+                      : "No hay horarios disponibles para este día 😔"}
+                  </span>
+                </div>
               )}
             </div>
           </motion.div>
@@ -243,18 +303,23 @@ const TurnoCalendar = () => {
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6"><path d="M20.52 3.48A12 12 0 0 0 3.48 20.52l-1.09 4.01a1 1 0 0 0 1.23 1.23l4.01-1.09A12 12 0 1 0 20.52 3.48ZM12 22a10 10 0 1 1 10-10A10 10 0 0 1 12 22Zm5.07-7.75c-.28-.14-1.65-.81-1.9-.9s-.44-.14-.62.14-.71.9-.87 1.09-.32.21-.6.07a7.94 7.94 0 0 1-2.34-1.44 8.82 8.82 0 0 1-1.63-2c-.17-.28 0-.43.13-.57.13-.13.28-.34.42-.51a.51.51 0 0 0 .07-.53c-.07-.14-.62-1.49-.85-2.05-.22-.53-.45-.46-.62-.47h-.53a1 1 0 0 0-.72.34A2.93 2.93 0 0 0 7 10.5a5.08 5.08 0 0 0 1.09 2.77c.14.19 2.13 3.25 5.18 4.42.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32s-.26-.19-.54-.33Z"/></svg>
         {loading ? 'Enviando...' : 'Confirmar turno por WhatsApp'}
       </motion.button>
-      {/* Mensaje de éxito */}
+      {/* Mensaje de éxito mejorado */}
       <AnimatePresence>
         {confirmado && (
           <motion.div
             key="confirmado"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="mt-4 text-center text-[#25D366] font-bold text-lg animate-bounce"
+            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl text-center"
             aria-live="polite"
           >
-            ¡Turno enviado a WhatsApp!
+            <div className="text-[#25D366] font-bold text-lg mb-1">
+              ✅ ¡Perfecto!
+            </div>
+            <div className="text-sm text-green-700">
+              Tu solicitud se abrió en WhatsApp. Te responderemos pronto 💚
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
