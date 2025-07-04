@@ -68,10 +68,12 @@ const Navbar = () => {
   const handleNavClick = (path) => {
     setIsOpen(false);
     if (path === '/') {
-      // Esperar a que el router termine el cambio de ruta
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 200);
+      // Scroll inmediato al tope sin delay
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      // Asegurar scroll después del render
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      });
     }
   };
 

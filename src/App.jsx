@@ -1,6 +1,6 @@
 // App.jsx
 import React, { Suspense, lazy, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import Navbar from "./components/common/Navbar";
@@ -18,15 +18,34 @@ const DetalleServicio = lazy(() =>
 );
 
 function App() {
+  const location = useLocation();
+
   // Forzar scroll al tope al cargar la página y desactivar scroll restoration del navegador
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-    setTimeout(() => {
+    // Scroll inmediato al tope
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    
+    // Scroll adicional después del render completo
+    const handleLoad = () => {
       window.scrollTo({ top: 0, behavior: 'auto' });
-    }, 100);
+    };
+    
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+    
+    return () => window.removeEventListener('load', handleLoad);
   }, []);
+
+  // Scroll al tope en cada cambio de ruta
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen">
