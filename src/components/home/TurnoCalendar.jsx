@@ -1,4 +1,4 @@
-// src/components/common/TurnoCalendar.jsx
+// src/components/home/TurnoCalendar.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -85,7 +85,6 @@ const TurnoCalendar = () => {
 
   // Redirige a WhatsApp con feedback visual y validación
   const redirigirWhatsapp = () => {
-    // Validación extra
     if (!fechaSeleccionada || !horaSeleccionada) {
       alert('Por favor selecciona una fecha y hora válidas.');
       return;
@@ -95,26 +94,18 @@ const TurnoCalendar = () => {
     setTimeout(() => {
       setLoading(false);
       setConfirmado(true);
-      
       try {
-        const opcionesFecha = { 
-          weekday: 'long', 
-          day: 'numeric', 
-          month: 'long', 
-          year: 'numeric' 
+        const opcionesFecha = {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
         };
         const diaTexto = fechaSeleccionada.toLocaleDateString('es-AR', opcionesFecha);
-        const mensaje = `¡Hola! 👋 Quiero reservar un turno para el *${diaTexto}* a las *${horaSeleccionada}*. 
-
-💄 Servicio: A coordinar
-📍 Ubicación: Rivadavia 519, 1er piso, Trelew
-📞 Contacto: MyBeautyStudy
-
-¡Gracias!`;
-        
+        // Mensaje predeterminado profesional y claro
+        const mensaje = `¡Hola! 😊\n\n¿Cómo estás? Te escribo para consultar disponibilidad de turnos. Me gustaría saber si tenés algún horario libre para el *${diaTexto}* cerca de las *${horaSeleccionada}*\n\n💅 Me interesa coordinar un servicio de belleza\n📍 Entiendo que estás en Rivadavia 519, 1er piso, Trelew\n\nSi ese día no te queda cómodo, también podríamos ver otras fechas que manejes 😉\n\n¡Muchas gracias! 🌸`;
         const url = `https://wa.me/5492804034308?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
-        
         // Limpiar selección después de enviar
         setTimeout(() => {
           setConfirmado(false);
