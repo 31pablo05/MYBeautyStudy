@@ -32,6 +32,11 @@ const TurnoCalendar = () => {
   const [loading, setLoading] = useState(false);
   const horasRef = useRef(null);
 
+  // Limpiar flag de interacción al cargar el componente
+  useEffect(() => {
+    localStorage.removeItem('calendario-interaccion');
+  }, []);
+
   // Deshabilita días bloqueados y domingos
   const tileDisabled = ({ date }) => {
     const day = date.getDay();
@@ -88,11 +93,16 @@ const TurnoCalendar = () => {
     }, 900);
   };
 
-  // Efecto: cuando cambia fecha, limpiar hora y hacer scroll
+  // Efecto: cuando cambia fecha, limpiar hora y hacer scroll (solo si no es la carga inicial)
   useEffect(() => {
     setHoraSeleccionada('');
+    // Solo hacer scroll si ya hay una fecha seleccionada previamente y no es la carga inicial
     if (fechaSeleccionada && horasRef.current) {
-      horasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Verificar si el usuario ya interactuó con el calendario
+      const hasUserInteracted = localStorage.getItem('calendario-interaccion');
+      if (hasUserInteracted) {
+        horasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }, [fechaSeleccionada]);
 
@@ -135,7 +145,11 @@ const TurnoCalendar = () => {
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         <Calendar
-          onChange={(date) => setFechaSeleccionada(date)}
+          onChange={(date) => {
+            setFechaSeleccionada(date);
+            // Marcar que el usuario ha interactuado con el calendario
+            localStorage.setItem('calendario-interaccion', 'true');
+          }}
           value={fechaSeleccionada}
           minDate={new Date()}
           tileDisabled={tileDisabled}
