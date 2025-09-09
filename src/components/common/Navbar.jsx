@@ -226,12 +226,12 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="p-2 rounded-lg bg-gray-50 hover:bg-[#d4af37] hover:scale-110 transition-all duration-300 group"
+                className="p-2 rounded-lg hover:scale-110 transition-transform duration-300"
               >
                 <img 
                   src={link.img} 
                   alt={link.alt} 
-                  className="w-5 h-5 group-hover:brightness-0 group-hover:invert transition-all duration-300" 
+                  className="w-5 h-5" 
                 />
               </a>
             ))}
