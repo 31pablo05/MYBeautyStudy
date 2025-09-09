@@ -229,24 +229,6 @@ const Contact = () => {
           </section>
         </motion.div>
       </main>
-      <style>{`
-        .shadow-gold { box-shadow: 0 2px 12px 0 #d4af3740, 0 0 0 2px #d4af37; }
-        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
-        .animate-gold-glow {
-          animation: gold-glow 2.2s infinite alternate;
-        }
-        @keyframes gold-glow {
-          0% { filter: drop-shadow(0 0 0px #d4af37cc); }
-          100% { filter: drop-shadow(0 0 12px #d4af37cc); }
-        }
-        @keyframes fade-in-up {
-          0% { opacity: 0; transform: translateY(40px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 1s;
-        }
-      `}</style>
     </>
   );
 };
