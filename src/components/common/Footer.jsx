@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 import {
   FaMapMarkerAlt,
   FaPhone,
   FaEnvelope,
   FaFacebookF,
-  FaInstagram
+  FaInstagram,
+  FaWhatsapp,
+  FaClock,
+  FaHeart
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -22,20 +27,46 @@ const Footer = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Tooltip para redes
+  // Datos de contacto
+  const contactInfo = {
+    direccion: "Rivadavia 519, 1er piso",
+    ciudad: "Trelew, Chubut, Argentina",
+    telefono: "+54 9 280 403-4308",
+    email: "Meyapier.4@gmail.com",
+    whatsapp: "https://wa.me/5492804034308"
+  };
+
+  // Horarios de atención
+  const horarios = [
+    { dias: "Lun - Vie", horas: "9:00 - 18:00" },
+    { dias: "Sábados", horas: "9:00 - 15:00" },
+    { dias: "Domingos", horas: "Cerrado" }
+  ];
+
+  // Redes sociales
   const socialLinks = [
     {
       href: "https://www.facebook.com/mybeautystudy",
-      icon: <FaFacebookF className="text-4xl text-white" />, label: "Facebook"
+      icon: <FaFacebookF />,
+      label: "Facebook",
+      color: "hover:bg-[#1877F2]"
     },
     {
       href: "https://www.instagram.com/meliii_lash/",
-      icon: <FaInstagram className="text-4xl text-white" />, label: "Instagram"
+      icon: <FaInstagram />,
+      label: "Instagram",
+      color: "hover:bg-gradient-to-r hover:from-[#E4405F] hover:to-[#833AB4]"
     },
+    {
+      href: contactInfo.whatsapp,
+      icon: <FaWhatsapp />,
+      label: "WhatsApp",
+      color: "hover:bg-[#25D366]"
+    }
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-[#eac9c1] to-[#d4af37] text-white mt-40 py-16 md:py-24 relative overflow-hidden animate-footer-fadein" role="contentinfo" aria-label="Pie de página con información de contacto y derechos">
+    <footer className="relative bg-gradient-to-br from-[#2c2c2c] via-[#3d3d3d] to-[#2c2c2c] text-white overflow-hidden">
       {/* SEO: Local Business (JSON-LD) */}
       <script type="application/ld+json">{`
         {
@@ -54,153 +85,239 @@ const Footer = () => {
           "telephone": "+54 9 2804 034308"
         }
       `}</script>
-      {/* Fondo textura premium con overlay para contraste */}
-      <div className="absolute inset-0 bg-[url('/assets/images/fondoform.webp')] bg-cover bg-center opacity-10 pointer-events-none z-0" aria-hidden="true" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#fffbe6]/90 via-[#eac9c1]/80 to-[#d4af37]/80 z-0" aria-hidden="true" />
-      <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center relative z-10">
-        {/* DERECHA - Redes sociales (orden móvil: primero) */}
-        <nav className="flex space-x-6 order-1 sm:order-3 mb-6 sm:mb-0" aria-label="Redes sociales">
-          {socialLinks.map((s, i) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group transition-transform duration-300 hover:scale-110 focus:outline-none relative"
-              aria-label={`Ir a ${s.label} de MyBeautyStudy (se abre en nueva pestaña)`}
-              tabIndex={0}
+
+      {/* Efectos decorativos de fondo */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#d4af37]/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#b76e79]/10 to-transparent rounded-full blur-2xl"></div>
+      
+      <div className="relative z-10">
+        {/* Sección principal */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            {/* Información del negocio */}
+            <motion.div
+              className="lg:col-span-2"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
             >
-              <div className="p-3 rounded-full group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_15px_#e7c3b1] group-hover:drop-shadow-gold group-hover:animate-bounce-gold transition-all duration-300 focus:ring-4 focus:ring-[#d4af37]/70">
-                {s.icon}
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <h3 className="text-2xl font-extrabold">
+                    <span className="bg-gradient-to-r from-[#d4af37] via-[#b76e79] to-[#d4af37] bg-clip-text text-transparent">
+                      MY Beauty Study
+                    </span>
+                  </h3>
+                  <motion.img 
+                    src="/assets/images/logosvg/logomybeautytransp.svg" 
+                    alt="MY Beauty Study Logo" 
+                    className="w-10 h-10 object-contain"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: 0.4,
+                      ease: "easeOut"
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.3, ease: "easeInOut" }
+                    }}
+                    viewport={{ once: true }}
+                  />
+                </div>
+                <p className="text-gray-300 leading-relaxed">
+                  Tu centro de belleza especializado en tratamientos de cejas, pestañas y depilación láser. 
+                  Realzamos tu belleza natural con técnicas profesionales de última generación en Trelew, Chubut.
+                </p>
               </div>
-              {/* Tooltip */}
-              <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1 bg-[#fffbe6] text-[#b76e79] text-xs rounded shadow-gold opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap">
-                {s.label}
-              </span>
-            </a>
-          ))}
-        </nav>
-        {/* IZQUIERDA - Contacto */}
-        <address className="flex flex-col space-y-3 items-start mb-6 sm:mb-0 order-2 sm:order-1 not-italic" aria-label="Información de contacto">
-          <div className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105">
-            <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
-              <FaMapMarkerAlt className="text-2xl md:text-2xl text-[#b76e79]" />
-            </div>
-            <span className="text-base md:text-lg font-medium text-[#7a5c2e]">Rivadavia 519 - 1er piso, Trelew, Chubut, Argentina</span>
+
+              {/* Información de contacto */}
+              <div className="space-y-4">
+                <motion.div
+                  className="flex items-center gap-3 group cursor-pointer"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#d4af37] to-[#b76e79] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FaMapMarkerAlt className="text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{contactInfo.direccion}</p>
+                    <p className="text-gray-300 text-sm">{contactInfo.ciudad}</p>
+                  </div>
+                </motion.div>
+
+                <motion.a
+                  href={`tel:${contactInfo.telefono}`}
+                  className="flex items-center gap-3 group"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#d4af37] to-[#b76e79] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FaPhone className="text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{contactInfo.telefono}</p>
+                    <p className="text-gray-300 text-sm">Llamanos o escribinos</p>
+                  </div>
+                </motion.a>
+
+                <motion.a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-3 group"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#d4af37] to-[#b76e79] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FaEnvelope className="text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{contactInfo.email}</p>
+                    <p className="text-gray-300 text-sm">Consultas por email</p>
+                  </div>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Horarios de atención */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-2 mb-6">
+                <FaClock className="text-[#d4af37] text-xl" />
+                <h4 className="text-xl font-bold text-white">Horarios</h4>
+              </div>
+              <div className="space-y-3">
+                {horarios.map((horario, index) => (
+                  <div key={index} className="flex justify-between items-center">
+                    <span className="text-gray-300 font-medium">{horario.dias}</span>
+                    <span className={`font-bold text-sm px-3 py-1 rounded-lg ${
+                      horario.horas === 'Cerrado' 
+                        ? 'bg-red-500/20 text-red-300' 
+                        : 'bg-[#d4af37]/20 text-[#d4af37]'
+                    }`}>
+                      {horario.horas}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Call to action para reservas */}
+              <motion.a
+                href={contactInfo.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#128C7E] hover:to-[#25D366] text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaWhatsapp className="text-lg" />
+                <span className="text-sm">Reservar Turno</span>
+              </motion.a>
+            </motion.div>
+
+            {/* Redes sociales */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-xl font-bold text-white mb-6">Seguinos</h4>
+              <div className="space-y-4">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 transition-all duration-300 ${social.color} group`}
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="w-8 h-8 flex items-center justify-center text-white group-hover:text-white transition-colors">
+                      {social.icon}
+                    </div>
+                    <span className="font-medium text-white group-hover:text-white transition-colors">
+                      {social.label}
+                    </span>
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Testimonios rápidos */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-[#d4af37]/10 to-[#b76e79]/10 rounded-xl border border-[#d4af37]/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-[#d4af37] text-sm">⭐</span>
+                    ))}
+                  </div>
+                  <span className="text-white text-sm font-bold">5.0</span>
+                </div>
+                <p className="text-gray-300 text-xs italic">
+                  "Excelente atención y resultados increíbles. ¡Super recomendado!"
+                </p>
+                <p className="text-gray-400 text-xs mt-1">- Clientes satisfechos</p>
+              </div>
+            </motion.div>
           </div>
-          <a
-            href="tel:+5492804034308"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105 focus:outline-none"
-            aria-label="Llamar a +54 9 280 403-4308"
-          >
-            <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
-              <FaPhone className="text-2xl md:text-2xl text-[#b76e79]" />
-            </div>
-            <span className="text-base md:text-lg font-medium text-[#7a5c2e]">+54 9 280 403-4308</span>
-          </a>
-          <a
-            href="mailto:Meyapier.4@gmail.com"
-            className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105 focus:outline-none"
-            aria-label="Enviar correo a Meyapier.4@gmail.com"
-          >
-            <div className="p-2 rounded-md group-hover:bg-[#e7c3b1] group-hover:shadow-[0_0_10px_#e7c3b1] transition-all duration-300">
-              <FaEnvelope className="text-2xl md:text-2xl text-[#b76e79]" />
-            </div>
-            <span className="text-base md:text-lg font-medium text-[#7a5c2e]">Meyapier.4@gmail.com</span>
-          </a>
-        </address>
-        {/* CENTRO - Derechos */}
-        <div className="text-center text-[#7a5c2e] text-base md:text-lg font-semibold mb-6 sm:mb-0 order-3 sm:order-2">
-          <p>&copy; <span className="inline-block animate-fadein-year font-bold text-[#d4af37] drop-shadow-gold text-lg md:text-xl">{year}</span> <span className="footer-highlight footer-highlight-white">MYBeautyStudy</span>. Todos los derechos reservados.</p>
-          <p>
-            Desarrollado por <a
-              href="https://pablo-web-app.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-highlight footer-highlight-white font-semibold hover:text-[#fffbe6] focus:outline-none focus:ring-2 focus:ring-[#d4af37]/70 transition-colors"
-              aria-label="Portafolio de Pablo Proboste (se abre en nueva pestaña)"
+        </div>
+
+        {/* Línea divisoria */}
+        <div className="border-t border-white/10"></div>
+
+        {/* Footer bottom */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <motion.div
+              className="text-center md:text-left"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
             >
-              Pablo Proboste
-            </a> &nbsp;|&nbsp;
-            <a
-              href="/privacy-policy"
-              className="hover:text-[#d4af37] hover:underline focus:outline-none focus:ring-2 focus:ring-[#d4af37]/70"
-              aria-label="Política de privacidad"
+              <p className="text-gray-300">
+                &copy; <span className="font-bold text-[#d4af37]">{year}</span> MY Beauty Study. 
+                Todos los derechos reservados.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="flex items-center gap-4 text-sm text-gray-300"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
             >
-              Política de privacidad
-            </a>
-          </p>
+              <span className="flex items-center gap-1">
+                Hecho con <FaHeart className="text-red-500 text-xs animate-pulse" /> por
+              </span>
+              <a
+                href="https://devcraftpablo.online/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-[#d4af37] hover:text-[#b76e79] transition-colors duration-300 hover:underline"
+              >
+                Pablo Proboste
+              </a>
+              <span>|</span>
+              <a
+                href="/privacy-policy"
+                className="hover:text-[#d4af37] transition-colors duration-300 hover:underline"
+              >
+                Política de privacidad
+              </a>
+            </motion.div>
+          </div>
         </div>
       </div>
-      {/* Estilos premium y animaciones */}
-      <style>{`
-        .shadow-gold { box-shadow: 0 2px 8px 0 #d4af3740, 0 0 0 2px #d4af37; }
-        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
-        .animate-gold-glow {
-          animation: gold-glow 2.2s infinite alternate;
-        }
-        @keyframes gold-glow {
-          0% { filter: drop-shadow(0 0 0px #d4af37cc); }
-          100% { filter: drop-shadow(0 0 12px #d4af37cc); }
-        }
-        .footer-star-glow {
-          text-shadow: 0 0 16px #fffbe6, 0 0 32px #d4af37, 0 0 8px #fffbe6;
-        }
-        .animate-star-glow {
-          animation: star-glow 2.5s infinite alternate;
-        }
-        @keyframes star-glow {
-          0% { filter: drop-shadow(0 0 0px #fffbe6); opacity: 0.7; }
-          50% { filter: drop-shadow(0 0 16px #fffbe6) drop-shadow(0 0 32px #d4af37); opacity: 1; }
-          100% { filter: drop-shadow(0 0 0px #fffbe6); opacity: 0.7; }
-        }
-        .footer-highlight {
-          position: relative;
-          font-weight: bold;
-        }
-        .footer-highlight-white {
-          color: #fff !important;
-        }
-        .footer-highlight::after {
-          content: '';
-          position: absolute;
-          left: 0; right: 0; bottom: -2px;
-          height: 4px;
-          background: linear-gradient(90deg, #d4af37 0%, #fffbe6 50%, #d4af37 100%);
-          border-radius: 2px;
-          opacity: 0.85;
-          z-index: 1;
-          transition: background 0.3s;
-        }
-        .footer-highlight:hover::after, .footer-highlight:focus::after {
-          background: linear-gradient(90deg, #fffbe6 0%, #d4af37 100%);
-        }
-        .animate-footer-fadein {
-          animation: footer-fadein 1.2s cubic-bezier(.4,0,.2,1);
-        }
-        @keyframes footer-fadein {
-          0% { opacity: 0; transform: translateY(60px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-bounce-gold {
-          animation: bounce-gold 0.7s;
-        }
-        @keyframes bounce-gold {
-          0% { transform: scale(1); }
-          30% { transform: scale(1.18); }
-          60% { transform: scale(0.95); }
-          100% { transform: scale(1); }
-        }
-        .animate-fadein-year {
-          animation: fadein-year 1.2s;
-        }
-        @keyframes fadein-year {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}</style>
     </footer>
   );
 };

@@ -145,3 +145,131 @@
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* === HERO ANIMATIONS === */
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+.bg-300\% {
+  background-size: 300% 300%;
+}
+
+/* Glass morphism effect */
+.backdrop-blur-custom {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom shadow effects */
+.shadow-glow {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.shadow-glow-hover:hover {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+}
+
+/* === ESTILOS DEL FOOTER === */
+.shadow-gold { 
+  box-shadow: 0 2px 8px 0 #d4af3740, 0 0 0 2px #d4af37; 
+}
+
+.drop-shadow-gold { 
+  filter: drop-shadow(0 0 6px #d4af37cc); 
+}
+
+.animate-gold-glow {
+  animation: gold-glow 2.2s infinite alternate;
+}
+
+@keyframes gold-glow {
+  0% { filter: drop-shadow(0 0 0px #d4af37cc); }
+  100% { filter: drop-shadow(0 0 12px #d4af37cc); }
+}
+
+.footer-star-glow {
+  text-shadow: 0 0 16px #fffbe6, 0 0 32px #d4af37, 0 0 8px #fffbe6;
+}
+
+.animate-star-glow {
+  animation: star-glow 2.5s infinite alternate;
+}
+
+@keyframes star-glow {
+  0% { filter: drop-shadow(0 0 0px #fffbe6); opacity: 0.7; }
+  50% { filter: drop-shadow(0 0 16px #fffbe6) drop-shadow(0 0 32px #d4af37); opacity: 1; }
+  100% { filter: drop-shadow(0 0 0px #fffbe6); opacity: 0.7; }
+}
+
+.footer-highlight {
+  position: relative;
+  font-weight: bold;
+}
+
+.footer-highlight-white {
+  color: #fff !important;
+}
+
+.footer-highlight::after {
+  content: '';
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  bottom: -2px;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37 0%, #fffbe6 50%, #d4af37 100%);
+  border-radius: 2px;
+  opacity: 0.85;
+  z-index: 1;
+  transition: background 0.3s;
+}
+
+.footer-highlight:hover::after, 
+.footer-highlight:focus::after {
+  background: linear-gradient(90deg, #fffbe6 0%, #d4af37 100%);
+}
+
+.animate-footer-fadein {
+  animation: footer-fadein 1.2s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes footer-fadein {
+  0% { opacity: 0; transform: translateY(60px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-bounce-gold {
+  animation: bounce-gold 0.7s;
+}
+
+@keyframes bounce-gold {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.18); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.animate-fadein-year {
+  animation: fadein-year 1.2s;
+}
+
+@keyframes fadein-year {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

@@ -170,151 +170,348 @@ const TurnoCalendar = () => {
   }, []);
 
   return (
-    <motion.div
-      className="w-full px-4 sm:max-w-md mx-auto mt-8 p-6 bg-[#F7E3D8] border-2 border-[#D4AF37] rounded-2xl shadow-lg transition-transform duration-300 hover:shadow-2xl hover:scale-[1.01] relative"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-    >
-      {/* Imán o pin superior */}
-      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#D4A29E] rounded-full shadow-md border-4 border-white z-10"></div>
-      <div className="flex items-center justify-center gap-2 mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d4af37" className="w-7 h-7"><circle cx="12" cy="12" r="9" stroke="#d4af37" strokeWidth="2" fill="#fff8e1" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7v5l3 2" /></svg>
-        <h2 className="text-2xl font-bold text-center text-[#b76e79] tracking-wide drop-shadow-sm">Reservá tu turno</h2>
-      </div>
-      <p className="text-center text-[#4E3B1C] text-sm mb-4">Seleccioná el día y la hora, luego confirmá tu turno por WhatsApp.</p>
-      {/* Calendario con estilos personalizados */}
+    <div className="w-full max-w-lg mx-auto px-4">
       <motion.div
-        className="rounded-xl overflow-hidden bg-white shadow-inner p-2 border-2 border-[#D4AF37] mb-4"
-        initial={{ opacity: 0, y: 20 }}
+        className="relative bg-gradient-to-br from-white via-[#faf8f5] to-[#f8f4f0] border border-[#d4af37]/30 rounded-3xl shadow-2xl overflow-hidden"
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <Calendar
-          onChange={(date) => {
-            setFechaSeleccionada(date);
-            // Marcar que el usuario ha interactuado con el calendario
-            localStorage.setItem('calendario-interaccion', 'true');
-          }}
-          value={fechaSeleccionada}
-          minDate={new Date()}
-          tileDisabled={tileDisabled}
-          className={`!border-none
-            [&_.react-calendar__tile]:p-3
-            [&_.react-calendar__tile]:rounded-lg
-            [&_.react-calendar__tile]:text-sm sm:[&_.react-calendar__tile]:text-base
-            [&_.react-calendar__tile:hover]:bg-[#FCECE6]
-            [&_.react-calendar__tile--active]:bg-[#D4AF37]
-            [&_.react-calendar__tile--active]:text-white
-            [&_.react-calendar__tile--now]:bg-[#ECD4B0]
-            [&_.react-calendar__tile--now]:text-[#4E3B1C]
-            [&_.react-calendar__navigation__label]:font-bold
-            [&_.react-calendar__navigation__label]:text-[#4E3B1C]
-            [&_.react-calendar__navigation__arrow]:text-[#D4AF37]
-            [&_.react-calendar__month-view__weekdays]:text-xs
-            [&_.react-calendar__month-view__weekdays]:text-[#8C7A58]
-            [&_.react-calendar__month-view__weekdays]:uppercase`}
-        />
-      </motion.div>
-      {/* Mostrar día y hora seleccionados */}
-      <AnimatePresence>
-        {(fechaSeleccionada || horaSeleccionada) && (
+        {/* Efectos decorativos */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#d4af37]/20 to-transparent rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#b76e79]/20 to-transparent rounded-full blur-xl"></div>
+        
+        {/* Header premium */}
+        <motion.div
+          className="relative z-10 text-center pt-8 pb-6 px-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Badge superior */}
           <motion.div
-            key="resumen"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="text-center mb-2"
-            aria-live="polite"
+            className="inline-block mb-4"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
           >
-            {fechaSeleccionada && (
-              <span className="inline-block bg-[#fff8e1] text-[#b76e79] px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-1">
-                {fechaSeleccionada.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </span>
-            )}
-            {horaSeleccionada && (
-              <span className="inline-block bg-[#d4af37]/90 text-white px-3 py-1 rounded-full text-sm font-semibold mb-1">
-                {horaSeleccionada} hs
-              </span>
-            )}
+            <span className="bg-gradient-to-r from-[#d4af37] to-[#b76e79] bg-clip-text text-transparent text-sm font-semibold tracking-wider uppercase">
+              📅 Reserva Online
+            </span>
           </motion.div>
-        )}
-      </AnimatePresence>
-      {/* Selección de hora usando una grilla de botones */}
-      <div ref={horasRef}>
-        {fechaSeleccionada && (
+          
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#2c2c2c] mb-3 tracking-tight">
+            <span className="bg-gradient-to-r from-[#b76e79] via-[#d4af37] to-[#b76e79] bg-clip-text text-transparent">
+              Elegí tu momento ideal
+            </span>
+          </h2>
+          
+          <div className="w-20 h-1 bg-gradient-to-r from-[#d4af37] to-[#b76e79] mx-auto rounded-full mb-4"></div>
+          
+          <p className="text-[#555] text-lg leading-relaxed max-w-md mx-auto">
+            Seleccioná tu fecha y horario preferido. Te contactaremos por WhatsApp al instante.
+          </p>
+        </motion.div>
+
+        <div className="px-6 pb-8">
+          
+          {/* Calendario modernizado */}
           <motion.div
+            className="mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-4"
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <label className="block mb-2 font-semibold text-[#4E3B1C]">🕐 Elegí la hora:</label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {getHorasDisponiblesHoy().map((hora) => (
-                <button
-                  key={hora}
-                  aria-label={`Seleccionar hora ${hora}`}
-                  onClick={() => setHoraSeleccionada(hora)}
-                  className={`py-2 rounded-xl text-center font-medium transition-all duration-200 focus:ring-2 focus:ring-[#d4af37] focus:outline-none
-                    ${horaSeleccionada === hora
-                      ? 'bg-[#D4AF37] text-white scale-105 shadow-lg'
-                      : 'bg-white text-[#333] border border-[#D4AF37] hover:bg-[#FCECE6] hover:scale-102'
-                    }`}
-                >
-                  {hora}
-                </button>
-              ))}
-              {getHorasDisponiblesHoy().length === 0 && (
-                <div className="col-span-2 sm:col-span-3 text-center p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-                  <span className="text-[#b76e79] text-sm font-medium">
-                    {fechaSeleccionada?.getDay() === 0 
-                      ? "Los domingos estamos cerrados 🛌" 
-                      : "No hay horarios disponibles para este día 😔"}
-                  </span>
+            <div className="flex items-center gap-3 mb-4">
+              <motion.div
+                className="w-10 h-10 bg-gradient-to-r from-[#d4af37] to-[#b76e79] rounded-xl flex items-center justify-center shadow-lg"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+              </motion.div>
+              <h3 className="text-xl font-bold text-[#2c2c2c]">Paso 1: Seleccioná tu fecha</h3>
+            </div>
+            
+            <div className="bg-white rounded-2xl shadow-lg p-4 border border-[#d4af37]/20">
+              <Calendar
+                onChange={(date) => {
+                  setFechaSeleccionada(date);
+                  localStorage.setItem('calendario-interaccion', 'true');
+                }}
+                value={fechaSeleccionada}
+                minDate={new Date()}
+                tileDisabled={tileDisabled}
+                className={`!border-none w-full
+                  [&_.react-calendar__tile]:p-3
+                  [&_.react-calendar__tile]:rounded-xl
+                  [&_.react-calendar__tile]:text-sm sm:[&_.react-calendar__tile]:text-base
+                  [&_.react-calendar__tile]:font-semibold
+                  [&_.react-calendar__tile]:transition-all
+                  [&_.react-calendar__tile]:duration-300
+                  [&_.react-calendar__tile:hover]:bg-[#d4af37]/10
+                  [&_.react-calendar__tile:hover]:scale-110
+                  [&_.react-calendar__tile:hover]:shadow-md
+                  [&_.react-calendar__tile--active]:bg-gradient-to-r
+                  [&_.react-calendar__tile--active]:from-[#d4af37]
+                  [&_.react-calendar__tile--active]:to-[#b76e79]
+                  [&_.react-calendar__tile--active]:text-white
+                  [&_.react-calendar__tile--active]:shadow-lg
+                  [&_.react-calendar__tile--active]:scale-105
+                  [&_.react-calendar__tile--now]:bg-[#d4af37]/20
+                  [&_.react-calendar__tile--now]:text-[#2c2c2c]
+                  [&_.react-calendar__tile--now]:font-bold
+                  [&_.react-calendar__tile--now]:border-2
+                  [&_.react-calendar__tile--now]:border-[#d4af37]
+                  [&_.react-calendar__navigation__label]:font-bold
+                  [&_.react-calendar__navigation__label]:text-[#2c2c2c]
+                  [&_.react-calendar__navigation__label]:text-lg
+                  [&_.react-calendar__navigation__arrow]:text-[#d4af37]
+                  [&_.react-calendar__navigation__arrow]:text-xl
+                  [&_.react-calendar__navigation__arrow]:font-bold
+                  [&_.react-calendar__navigation__arrow:hover]:bg-[#d4af37]/10
+                  [&_.react-calendar__navigation__arrow:hover]:rounded-lg
+                  [&_.react-calendar__month-view__weekdays]:text-xs
+                  [&_.react-calendar__month-view__weekdays]:text-[#666]
+                  [&_.react-calendar__month-view__weekdays]:uppercase
+                  [&_.react-calendar__month-view__weekdays]:font-bold
+                  [&_.react-calendar__month-view__weekdays]:tracking-wider
+                  [&_.react-calendar__month-view__weekdays]:py-2`}
+              />
+            </div>
+          </motion.div>
+
+          {/* Resumen visual de selección */}
+          <AnimatePresence>
+            {(fechaSeleccionada || horaSeleccionada) && (
+              <motion.div
+                key="resumen"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="flex flex-wrap justify-center gap-3 mb-6"
+                aria-live="polite"
+              >
+                {fechaSeleccionada && (
+                  <motion.div
+                    className="bg-gradient-to-r from-[#d4af37]/20 to-[#b76e79]/20 backdrop-blur-sm border border-[#d4af37]/30 text-[#2c2c2c] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="text-lg">📅</span>
+                    {fechaSeleccionada.toLocaleDateString('es-AR', { 
+                      weekday: 'long',
+                      day: 'numeric', 
+                      month: 'long'
+                    })}
+                  </motion.div>
+                )}
+                {horaSeleccionada && (
+                  <motion.div
+                    className="bg-gradient-to-r from-[#25D366]/20 to-[#128C7E]/20 backdrop-blur-sm border border-[#25D366]/30 text-[#2c2c2c] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="text-lg">🕐</span>
+                    {horaSeleccionada} hs
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Selección de horario */}
+          <div ref={horasRef}>
+            {fechaSeleccionada && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mb-6"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <motion.div
+                    className="w-10 h-10 bg-gradient-to-r from-[#25D366] to-[#128C7E] rounded-xl flex items-center justify-center shadow-lg"
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+                    </svg>
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-[#2c2c2c]">Paso 2: Elegí tu horario</h3>
                 </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </div>
-      {/* Botón de confirmación */}
-      <motion.button
-        aria-label="Confirmar turno y abrir WhatsApp"
-        disabled={!fechaSeleccionada || !horaSeleccionada || loading}
-        onClick={redirigirWhatsapp}
-        className={`
-          w-full mt-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition transform
-          ${fechaSeleccionada && horaSeleccionada && !loading
-            ? 'bg-[#D4AF37] hover:bg-[#B8912B] text-white shadow-md hover:scale-105 delay-200 animate-pulse'
-            : 'bg-gray-300 text-gray-600 cursor-not-allowed'
-          }`}
-        whileTap={{ scale: 0.97 }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6"><path d="M20.52 3.48A12 12 0 0 0 3.48 20.52l-1.09 4.01a1 1 0 0 0 1.23 1.23l4.01-1.09A12 12 0 1 0 20.52 3.48ZM12 22a10 10 0 1 1 10-10A10 10 0 0 1 12 22Zm5.07-7.75c-.28-.14-1.65-.81-1.9-.9s-.44-.14-.62.14-.71.9-.87 1.09-.32.21-.6.07a7.94 7.94 0 0 1-2.34-1.44 8.82 8.82 0 0 1-1.63-2c-.17-.28 0-.43.13-.57.13-.13.28-.34.42-.51a.51.51 0 0 0 .07-.53c-.07-.14-.62-1.49-.85-2.05-.22-.53-.45-.46-.62-.47h-.53a1 1 0 0 0-.72.34A2.93 2.93 0 0 0 7 10.5a5.08 5.08 0 0 0 1.09 2.77c.14.19 2.13 3.25 5.18 4.42.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32s-.26-.19-.54-.33Z"/></svg>
-        {loading ? 'Enviando...' : 'Confirmar turno por WhatsApp'}
-      </motion.button>
-      {/* Mensaje de éxito mejorado */}
-      <AnimatePresence>
-        {confirmado && (
+                
+                <div className="bg-white rounded-2xl shadow-lg p-4 border border-[#d4af37]/20">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {getHorasDisponiblesHoy().map((hora, index) => (
+                      <motion.button
+                        key={hora}
+                        aria-label={`Seleccionar hora ${hora}`}
+                        onClick={() => setHoraSeleccionada(hora)}
+                        className={`py-3 px-4 rounded-xl text-center font-bold transition-all duration-300 focus:ring-2 focus:ring-[#d4af37] focus:outline-none relative overflow-hidden group
+                          ${horaSeleccionada === hora
+                            ? 'bg-gradient-to-r from-[#d4af37] to-[#b76e79] text-white shadow-lg transform scale-105'
+                            : 'bg-gray-50 text-[#333] border-2 border-gray-200 hover:border-[#d4af37] hover:bg-[#d4af37]/10 hover:shadow-md'
+                          }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                      >
+                        <span className="relative z-10">{hora}</span>
+                        {horaSeleccionada === hora && (
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                            initial={{ x: '-100%' }}
+                            animate={{ x: '100%' }}
+                            transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 2 }}
+                          />
+                        )}
+                      </motion.button>
+                    ))}
+                    {getHorasDisponiblesHoy().length === 0 && (
+                      <div className="col-span-2 sm:col-span-3 text-center p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-xl">
+                        <div className="text-4xl mb-2">
+                          {fechaSeleccionada?.getDay() === 0 ? "😴" : "📅"}
+                        </div>
+                        <span className="text-[#b76e79] font-bold block">
+                          {fechaSeleccionada?.getDay() === 0 
+                            ? "Los domingos estamos cerrados" 
+                            : "No hay horarios disponibles"}
+                        </span>
+                        <span className="text-sm text-gray-600 mt-1 block">
+                          Elegí otra fecha para ver horarios disponibles
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Botón de confirmación premium */}
+          {fechaSeleccionada && horaSeleccionada && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mb-6"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div
+                  className="w-10 h-10 bg-gradient-to-r from-[#25D366] to-[#128C7E] rounded-xl flex items-center justify-center shadow-lg"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <span className="text-white text-lg">✓</span>
+                </motion.div>
+                <h3 className="text-xl font-bold text-[#2c2c2c]">Paso 3: Confirmá tu reserva</h3>
+              </div>
+              
+              <motion.button
+                aria-label="Confirmar turno y abrir WhatsApp"
+                disabled={loading}
+                onClick={redirigirWhatsapp}
+                className="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#128C7E] hover:to-[#25D366] text-white font-bold py-4 px-6 rounded-2xl shadow-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg group relative overflow-hidden"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <motion.svg 
+                  className="w-6 h-6" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                  animate={{ rotate: loading ? 360 : 0 }}
+                  transition={{ duration: 1, repeat: loading ? Infinity : 0 }}
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.785"/>
+                </motion.svg>
+                <span className="relative z-10">
+                  {loading ? 'Preparando mensaje...' : 'Confirmar por WhatsApp'}
+                </span>
+                {!loading && (
+                  <motion.div
+                    className="w-2 h-2 bg-white rounded-full"
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  />
+                )}
+              </motion.button>
+            </motion.div>
+          )}
+
+          {/* Mensaje de éxito premium */}
+          <AnimatePresence>
+            {confirmado && (
+              <motion.div
+                key="confirmado"
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 text-center shadow-lg"
+                aria-live="polite"
+              >
+                <motion.div
+                  className="text-6xl mb-3"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.6 }}
+                >
+                  ✅
+                </motion.div>
+                <div className="text-[#25D366] font-bold text-xl mb-2">
+                  ¡Solicitud enviada con éxito!
+                </div>
+                <div className="text-green-700 font-semibold mb-3">
+                  Tu mensaje se abrió en WhatsApp
+                </div>
+                <div className="text-sm text-green-600 bg-white/60 rounded-xl px-4 py-2">
+                  💚 Te responderemos en minutos para confirmar tu cita
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Footer con garantías */}
           <motion.div
-            key="confirmado"
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl text-center"
-            aria-live="polite"
+            className="mt-8 pt-6 border-t border-gray-200"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="text-[#25D366] font-bold text-lg mb-1">
-              ✅ ¡Perfecto!
-            </div>
-            <div className="text-sm text-green-700">
-              Tu solicitud se abrió en WhatsApp. Te responderemos pronto 💚
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-2xl mb-1">⚡</div>
+                <div className="text-xs font-bold text-gray-600">Respuesta inmediata</div>
+              </motion.div>
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-2xl mb-1">🔒</div>
+                <div className="text-xs font-bold text-gray-600">100% Seguro</div>
+              </motion.div>
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-2xl mb-1">💎</div>
+                <div className="text-xs font-bold text-gray-600">Servicio Premium</div>
+              </motion.div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
