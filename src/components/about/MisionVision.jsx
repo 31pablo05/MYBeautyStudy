@@ -1,106 +1,244 @@
 
 import React, { useRef, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+import { FaEye, FaBullseye, FaHeart, FaGift, FaStar } from "react-icons/fa";
 
-// Componente MisionVision: Moderno, profesional, accesible y visualmente premium.
-// Video institucional con poster, fade-out suave, sin íconos de play ni precarga fea.
-// Usa solo Tailwind para estilos y animaciones.
-const VIDEO_SRC = "/assets/videos/arte.mp4"; // Video institucional correcto
-const POSTER_SRC = "/assets/images/giftpromo.webp"; // Poster promocionando la gift card
+// Componente MisionVision: Moderno, profesional, elegante con diseño premium
+const VIDEO_SRC = "/assets/videos/arte.mp4";
+const POSTER_SRC = "/assets/images/GIFTCARDMelinaYancan.webp";
 
 const MisionVision = () => {
   const videoRef = useRef(null);
   const [posterVisible, setPosterVisible] = useState(true);
 
-  // Cuando el video empieza a reproducirse, fade-out del poster
   const handlePlay = () => {
-    setTimeout(() => setPosterVisible(false), 400); // Fade-out tras breve delay
+    setTimeout(() => setPosterVisible(false), 400);
   };
 
+  const misionVisionData = [
+    {
+      icon: <FaBullseye className="text-2xl" />,
+      title: "Misión",
+      subtitle: "Nuestro Propósito",
+      content: "Brindar servicios de estética de alta calidad, personalizados y con calidez humana, promoviendo el bienestar integral y la confianza de cada cliente.",
+      gradient: "from-[#d4af37] to-[#b76e79]",
+      bgGradient: "from-[#d4af37]/10 to-[#b76e79]/10"
+    },
+    {
+      icon: <FaEye className="text-2xl" />,
+      title: "Visión",
+      subtitle: "Nuestro Horizonte",
+      content: "Ser referentes en el sector de la estética, innovando constantemente y generando experiencias memorables que inspiren belleza, salud y profesionalismo.",
+      gradient: "from-[#b76e79] to-[#d4af37]",
+      bgGradient: "from-[#b76e79]/10 to-[#d4af37]/10"
+    }
+  ];
+
   return (
-    <section
-      id="mision-vision"
-      aria-labelledby="mision-vision-title"
-      className="relative w-full max-w-4xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center gap-10"
-    >
-      <header className="w-full text-center mb-6">
-        <h2
-          id="mision-vision-title"
-          className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2"
-          style={{
-            background: 'linear-gradient(90deg, #b76e79 0%, #ffd700 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            color: 'transparent',
-          }}
+    <section className="py-24 bg-gradient-to-br from-[#faf8f5] via-white to-[#f8f4f0] relative overflow-hidden">
+      {/* Efectos decorativos de fondo */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-[#d4af37]/5 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#b76e79]/5 to-transparent rounded-full blur-2xl"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header elegante */}
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
-          Misión & Visión
-        </h2>
-        <p className="text-lg md:text-xl max-w-2xl mx-auto" style={{ color: '#b76e79' }}>
-          Nuestra misión es potenciar la belleza y confianza de cada persona a través de servicios de excelencia, innovación y calidez humana. Nuestra visión es ser referentes en estética integral, inspirando bienestar y profesionalismo.
-        </p>
-      </header>
-
-      <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md aspect-[9/16] rounded-2xl overflow-hidden shadow-xl group mx-auto border-4 border-[#b76e79]">
-        {/* Poster con fade-out */}
-        <img
-          src={POSTER_SRC}
-          alt="Gift Card Promocional"
-          aria-hidden={!posterVisible}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out z-20 pointer-events-none select-none ${posterVisible ? 'opacity-100' : 'opacity-0'}`}
-          draggable="false"
-        />
-        {/* Video vertical accesible, sin controles, autoplay, loop, muted, sin íconos */}
-        <video
-          ref={videoRef}
-          src={VIDEO_SRC}
-          poster={POSTER_SRC}
-          autoPlay
-          loop
-          muted
-          playsInline
-          tabIndex={0}
-          aria-label="Video institucional de Misión y Visión"
-          className="w-full h-full object-cover z-10"
-          onPlay={handlePlay}
-          style={{ aspectRatio: '9/16' }}
-        />
-        {/* Overlay decorativo premium */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#b76e79]/60 via-transparent to-transparent pointer-events-none z-30" aria-hidden="true" />
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 w-full max-w-3xl mt-10">
-        <article className="bg-white/80 backdrop-blur rounded-xl shadow-lg p-6 flex flex-col gap-2 border-l-4" style={{ borderColor: '#b76e79' }}>
-          <h3 className="text-xl font-bold mb-1" style={{ color: '#b76e79' }}>Misión</h3>
-          <p className="text-gray-700">
-            Brindar servicios de estética de alta calidad, personalizados y con calidez humana, promoviendo el bienestar integral y la confianza de cada cliente.
+          <div className="inline-block mb-4">
+            <span className="bg-gradient-to-r from-[#d4af37] to-[#b76e79] bg-clip-text text-transparent text-sm font-semibold tracking-wider uppercase">
+              🎯 Nuestros Valores
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2c2c2c] mb-6 tracking-tight">
+            <span className="bg-gradient-to-r from-[#b76e79] via-[#d4af37] to-[#b76e79] bg-clip-text text-transparent">
+              Misión & Visión
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Conocé los valores y principios que guían nuestro trabajo diario y nos inspiran 
+            a brindar la mejor experiencia en belleza y bienestar.
           </p>
-        </article>
-        <article className="bg-white/80 backdrop-blur rounded-xl shadow-lg p-6 flex flex-col gap-2 border-l-4" style={{ borderColor: '#ffd700' }}>
-          <h3 className="text-xl font-bold mb-1" style={{ color: '#ffd700' }}>Visión</h3>
-          <p className="text-gray-700">
-            Ser referentes en el sector de la estética, innovando constantemente y generando experiencias memorables que inspiren belleza, salud y profesionalismo.
-          </p>
-        </article>
-      </div>
+          <div className="w-32 h-1 bg-gradient-to-r from-[#d4af37] to-[#b76e79] mx-auto rounded-full mt-6"></div>
+        </motion.div>
 
-      {/* Frase inspiradora y Botón CTA premium */}
-      <div className="w-full flex flex-col items-center mt-10 gap-4">
-        <p className="text-xl md:text-2xl font-semibold text-center max-w-xl" style={{ color: '#b76e79' }}>
-          "Regalate un momento para vos. La belleza comienza con el primer paso."
-        </p>
-        <a
-          href="/contact"
-          className="inline-block px-8 py-3 rounded-full font-semibold text-lg shadow-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#b76e79] focus:ring-offset-2 bg-gradient-to-r from-[#b76e79] to-[#ffd700] text-white border-none relative overflow-hidden animate-bounce"
-          aria-label="Reservar turno o consultar"
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Video promocional mejorado */}
+          <motion.div
+            className="relative order-2 lg:order-1"
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative max-w-sm mx-auto lg:max-w-none">
+              
+              {/* Efectos decorativos */}
+              <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-[#d4af37]/20 to-[#b76e79]/20 rounded-3xl blur-xl"></div>
+              <div className="absolute top-6 left-6 w-full h-full bg-gradient-to-tl from-[#b76e79]/10 to-[#d4af37]/10 rounded-3xl"></div>
+              
+              {/* Container del video */}
+              <motion.div
+                className="relative bg-white rounded-3xl p-6 shadow-2xl border border-gray-100 overflow-hidden"
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900">
+                  
+                  {/* Poster con fade-out */}
+                  <img
+                    src={POSTER_SRC}
+                    alt="Gift Card Promocional"
+                    aria-hidden={!posterVisible}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out z-20 pointer-events-none select-none ${
+                      posterVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    draggable="false"
+                  />
+                  
+                  {/* Video institucional */}
+                  <video
+                    ref={videoRef}
+                    src={VIDEO_SRC}
+                    poster={POSTER_SRC}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    tabIndex={0}
+                    aria-label="Video institucional de Misión y Visión"
+                    className="w-full h-full object-cover z-10"
+                    onPlay={handlePlay}
+                  />
+                  
+                  {/* Overlay decorativo */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-30"></div>
+                </div>
+                
+                {/* Info del video */}
+                <motion.div
+                  className="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-sm rounded-2xl p-4 border border-[#d4af37]/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-[#2c2c2c] flex items-center gap-2">
+                        <FaGift className="text-[#d4af37]" />
+                        Gift Card Especial
+                      </h4>
+                      <p className="text-sm text-gray-600">Regalo ideal para quien amas</p>
+                    </div>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className="text-[#d4af37] text-sm" />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Contenido de Misión y Visión */}
+          <motion.div
+            className="order-1 lg:order-2 space-y-8"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            
+            {misionVisionData.map((item, index) => (
+              <motion.div
+                key={index}
+                className={`bg-gradient-to-r ${item.bgGradient} backdrop-blur-sm rounded-2xl p-8 border border-[#d4af37]/20 shadow-lg`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -4 }}
+              >
+                {/* Header de la tarjeta */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${item.gradient} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-[#2c2c2c]">{item.title}</h3>
+                    <p className="text-sm text-gray-600 font-medium">{item.subtitle}</p>
+                  </div>
+                </div>
+                
+                {/* Contenido */}
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  {item.content}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Sección final inspiracional */}
+        <motion.div
+          className="mt-20 text-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
         >
-          <span className="relative z-10">Reservá tu turno</span>
-          {/* Efecto "destello" animado */}
-          <span className="absolute left-0 top-0 w-full h-full pointer-events-none z-0">
-            <span className="block w-2 h-2 rounded-full bg-yellow-300 opacity-80 animate-ping absolute right-4 top-3"></span>
-            <span className="block w-1.5 h-1.5 rounded-full bg-[#b76e79] opacity-70 animate-pulse absolute left-6 bottom-3"></span>
-          </span>
-        </a>
+          <div className="max-w-4xl mx-auto">
+            
+            {/* Quote inspiracional */}
+            <motion.div
+              className="bg-gradient-to-r from-[#d4af37]/10 to-[#b76e79]/10 rounded-3xl p-8 mb-8 border border-[#d4af37]/20"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex items-center justify-center mb-4">
+                <FaHeart className="text-[#b76e79] text-3xl" />
+              </div>
+              <blockquote className="text-2xl md:text-3xl font-bold text-[#2c2c2c] italic mb-4">
+                "Regalate un momento para vos. La belleza comienza con el primer paso."
+              </blockquote>
+              <p className="text-lg text-gray-600">
+                En MyBeautyStudy, cada servicio es una experiencia diseñada para tu bienestar y confianza.
+              </p>
+            </motion.div>
+
+            {/* Call to actions */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href="/contact"
+                className="bg-gradient-to-r from-[#d4af37] to-[#b76e79] hover:from-[#b76e79] hover:to-[#d4af37] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl text-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Reservá tu Turno</span>
+                <span className="text-xl">✨</span>
+              </motion.a>
+              
+              <motion.a
+                href="/services"
+                className="border-2 border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Ver Servicios</span>
+                <span>→</span>
+              </motion.a>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,120 +1,202 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { FaStar, FaAward, FaInstagram, FaRegSmile } from "react-icons/fa";
+import { FaStar, FaAward, FaInstagram, FaRegSmile, FaGraduationCap, FaHeart } from "react-icons/fa";
 
 const skills = [
-  { icon: <FaStar className="text-yellow-400 text-xl" />, label: "Cejas & Pestañas" },
-  { icon: <FaAward className="text-pink-400 text-xl" />, label: "Cursos Certificados" },
-  { icon: <FaRegSmile className="text-yellow-500 text-xl" />, label: "Atención Personalizada" },
-  { icon: <FaInstagram className="text-pink-500 text-xl" />, label: "@meliii_lash" },
+  { icon: <FaStar className="text-[#d4af37] text-lg" />, label: "Cejas & Pestañas", color: "bg-gradient-to-r from-[#d4af37]/10 to-[#b76e79]/10" },
+  { icon: <FaGraduationCap className="text-[#b76e79] text-lg" />, label: "Cursos Certificados", color: "bg-gradient-to-r from-[#b76e79]/10 to-[#d4af37]/10" },
+  { icon: <FaRegSmile className="text-[#d4af37] text-lg" />, label: "Atención Personalizada", color: "bg-gradient-to-r from-[#d4af37]/10 to-[#b76e79]/10" },
+  { icon: <FaInstagram className="text-[#b76e79] text-lg" />, label: "@meliii_lash", color: "bg-gradient-to-r from-[#b76e79]/10 to-[#d4af37]/10" },
 ];
 
 const Presentacion = () => {
   return (
-    <section className="py-20 bg-pink-50">
-      <div className="max-w-5xl mx-auto px-4 text-center">
-        <motion.h2
-          className="relative inline-block text-3xl md:text-4xl font-extrabold text-[#b76e79] mb-10 mt-10 drop-shadow-gold"
-          initial={{ opacity: 0, y: 30 }}
+    <section className="py-24 bg-gradient-to-br from-[#faf8f5] via-[#f8f4f0] to-[#f5f0eb] relative overflow-hidden">
+      {/* Efectos decorativos de fondo */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#d4af37]/5 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#b76e79]/5 to-transparent rounded-full blur-2xl"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header moderno */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          Conocé a <span className="text-pink-500 font-black">Melina Yancan</span>
-        </motion.h2>
+          <div className="inline-block mb-4">
+            <span className="bg-gradient-to-r from-[#d4af37] to-[#b76e79] bg-clip-text text-transparent text-lg font-semibold tracking-wider uppercase">
+              ✨ Conocé a la Especialista
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2c2c2c] mb-6 tracking-tight leading-tight">
+            <span className="bg-gradient-to-r from-[#b76e79] via-[#d4af37] to-[#b76e79] bg-clip-text text-transparent">
+              Melina Yancan
+            </span>
+          </h2>
+          <div className="w-32 h-1 bg-gradient-to-r from-[#d4af37] to-[#b76e79] mx-auto rounded-full"></div>
+        </motion.div>
 
-        <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 mt-6">
-          {/* Imagen premium con borde animado */}
+        {/* Contenido principal */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Imagen profesional mejorada */}
           <motion.div
-            className="relative flex-shrink-0"
-            initial={{ opacity: 0, x: -80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Fondo difuminado y anillo dorado animado */}
-            <div className="absolute inset-0 flex items-center justify-center z-0">
-              <span className="block w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-pink-200 to-pink-100 blur-2xl scale-125" />
-              <span className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full border-4 border-yellow-400 animate-gold-ring z-10" style={{boxShadow:'0 0 32px #d4af37cc'}}></span>
-            </div>
-            {/* Imagen animada */}
-            <motion.img
-              src="/assets/images/meli/3.webp"
-              alt="Melina Yancan"
-              className="relative w-72 h-72 md:w-96 md:h-96 object-cover object-top rounded-full shadow-lg z-20 border-4 border-white"
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
-            />
-          </motion.div>
-
-          {/* Texto animado y skills */}
-          <motion.div
-            className="flex-1 text-left md:text-left space-y-5"
-            initial={{ opacity: 0, x: 80 }}
+            className="relative order-2 lg:order-1"
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-pink-500 mb-2">Melina Yancan</h3>
-            <p className="text-lg md:text-xl text-[#7a5c2e] font-medium mb-2">
-              Especialista en Cejas, Pestañas y Estética Facial
-              <span className="ml-2 inline-block px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs align-middle font-semibold">+5 años de experiencia</span>
-            </p>
-            <p className="text-base md:text-xl text-gray-700 mb-2">
-              Soy una profesional apasionada por el mundo de la belleza. Me dedico a brindar servicios de cejas, pestañas y estética facial con un enfoque personalizado y de alta calidad. Mi objetivo es que cada persona que visite el estudio se sienta escuchada, cómoda y feliz con su imagen. Además, me encanta compartir mis conocimientos y por eso también dicto cursos para formar nuevas profesionales.
-            </p>
-            {/* Frase inspiracional */}
-            <blockquote className="italic text-pink-600 text-lg md:text-xl border-l-4 border-pink-300 pl-4 my-3">
-              "La confianza y el bienestar de cada clienta es mi mayor logro profesional."
-            </blockquote>
-            {/* Skills con íconos */}
-            <div className="flex flex-wrap gap-3 mt-4">
-              {skills.map((s, i) => (
-                <span key={i} className="flex items-center gap-2 px-3 py-1 bg-white/80 rounded-full shadow-gold text-pink-700 font-semibold text-sm md:text-base animate-skill-fadein">
-                  {s.icon} {s.label}
-                </span>
-              ))}
+            <div className="relative max-w-md mx-auto lg:max-w-none">
+              {/* Efectos decorativos */}
+              <div className="absolute -top-4 -left-4 w-full h-full bg-gradient-to-br from-[#d4af37]/20 to-[#b76e79]/20 rounded-3xl blur-xl"></div>
+              <div className="absolute top-4 left-4 w-full h-full bg-gradient-to-tl from-[#b76e79]/10 to-[#d4af37]/10 rounded-3xl"></div>
+              
+              {/* Imagen principal */}
+              <motion.div
+                className="relative bg-white rounded-3xl p-6 shadow-2xl border border-gray-100 overflow-hidden"
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src="/assets/images/meli/3.webp"
+                  alt="Melina Yancan - Especialista en Belleza"
+                  className="w-full h-96 object-cover object-top rounded-2xl"
+                />
+                
+                {/* Badge flotante */}
+                <motion.div
+                  className="absolute top-10 right-10 bg-gradient-to-r from-[#d4af37] to-[#b76e79] text-white px-4 py-2 rounded-full shadow-lg"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center gap-2">
+                    <FaAward className="text-sm" />
+                    <span className="text-sm font-bold">+5 años</span>
+                  </div>
+                </motion.div>
+                
+                {/* Indicador de experiencia */}
+                <div className="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-[#d4af37]/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-[#2c2c2c]">Especialista Certificada</p>
+                      <p className="text-xs text-gray-600">Cejas, Pestañas & Estética</p>
+                    </div>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className="text-[#d4af37] text-sm" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-            {/* Botón a Instagram profesional */}
-            <a
-              href="https://www.instagram.com/meliii_lash/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-6 px-6 py-2 rounded-full bg-gradient-to-r from-pink-400 via-yellow-400 to-yellow-500 text-white font-bold shadow-gold hover:from-pink-500 hover:to-yellow-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-200 animate-gold-glow"
-              aria-label="Ver Instagram profesional de Melina Yancan"
+          </motion.div>
+
+          {/* Contenido de texto mejorado */}
+          <motion.div
+            className="order-1 lg:order-2 space-y-8"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            
+            {/* Introducción */}
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-[#2c2c2c] mb-4">
+                Profesional Especializada en Belleza Facial
+              </h3>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Soy una profesional apasionada por el mundo de la belleza, especializada en 
+                <span className="font-semibold text-[#b76e79]"> cejas, pestañas y estética facial</span>. 
+                Mi enfoque se basa en brindar servicios personalizados de alta calidad, donde cada 
+                clienta se siente escuchada, cómoda y completamente satisfecha con su experiencia.
+              </p>
+            </div>
+
+            {/* Quote inspiracional */}
+            <motion.div
+              className="bg-gradient-to-r from-[#d4af37]/10 to-[#b76e79]/10 rounded-2xl p-6 border-l-4 border-[#d4af37]"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
             >
-              Ver Instagram profesional
-            </a>
+              <div className="flex items-start gap-4">
+                <FaHeart className="text-[#b76e79] text-2xl flex-shrink-0 mt-1" />
+                <div>
+                  <p className="text-lg font-medium text-[#2c2c2c] italic">
+                    "La confianza y el bienestar de cada clienta es mi mayor logro profesional. 
+                    Cada sonrisa y cada mirada radiante me motiva a seguir perfeccionando mi arte."
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2 font-semibold">- Melina Yancan</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Skills profesionales */}
+            <div>
+              <h4 className="text-xl font-bold text-[#2c2c2c] mb-6 flex items-center gap-2">
+                <span className="text-[#d4af37] text-2xl">✨</span>
+                Especialidades & Servicios
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    className={`${skill.color} backdrop-blur-sm rounded-xl p-4 border border-[#d4af37]/20 shadow-sm`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                        {skill.icon}
+                      </div>
+                      <span className="font-semibold text-[#2c2c2c]">{skill.label}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Call to actions */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <motion.a
+                href="https://www.instagram.com/meliii_lash/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-gradient-to-r from-[#E4405F] to-[#833AB4] hover:from-[#833AB4] hover:to-[#E4405F] text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaInstagram className="text-xl" />
+                <span>Seguir en Instagram</span>
+              </motion.a>
+              
+              <motion.a
+                href="/contact"
+                className="flex-1 bg-gradient-to-r from-[#d4af37] to-[#b76e79] hover:from-[#b76e79] hover:to-[#d4af37] text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Reservar Consulta</span>
+                <span className="text-xl">→</span>
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </div>
-      {/* Estilos premium para anillo dorado, skills y glow */}
-      <style>{`
-        .shadow-gold { box-shadow: 0 2px 8px 0 #d4af3740, 0 0 0 2px #d4af37; }
-        .drop-shadow-gold { filter: drop-shadow(0 0 6px #d4af37cc); }
-        .animate-gold-glow {
-          animation: gold-glow 2.2s infinite alternate;
-        }
-        @keyframes gold-glow {
-          0% { filter: drop-shadow(0 0 0px #d4af37cc); }
-          100% { filter: drop-shadow(0 0 12px #d4af37cc); }
-        }
-        .animate-gold-ring {
-          animation: gold-ring 2.5s infinite alternate;
-        }
-        @keyframes gold-ring {
-          0% { box-shadow: 0 0 16px #fffbe6, 0 0 0px #d4af37cc; }
-          100% { box-shadow: 0 0 32px #d4af37cc, 0 0 8px #fffbe6; }
-        }
-        .animate-skill-fadein {
-          animation: skill-fadein 1.2s;
-        }
-        @keyframes skill-fadein {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </section>
   );
 };
