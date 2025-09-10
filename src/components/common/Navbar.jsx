@@ -97,19 +97,18 @@ const Navbar = () => {
           "telephone": "+54 9 2804 034308"
         }
       `}</script>
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 max-w-full flex justify-between items-center overflow-x-hidden">
         {/* Logo SVG con mejor contraste y animaciones */}
-        <Link to="/" onClick={() => handleNavClick('/')} className="flex items-center group relative z-50" aria-label="Ir al inicio">
+        <Link to="/" onClick={() => handleNavClick('/')} className="flex items-center group relative z-50 flex-shrink-0" aria-label="Ir al inicio">
           <div className="relative">
             <img
               src="/assets/images/logosvg/logomybeautytransp.svg"
               alt="Logo My Beauty Study"
               className={`transition-all duration-300 drop-shadow-2xl ${
                 scrolled 
-                  ? 'h-12 w-auto filter brightness-75 contrast-125' 
-                  : 'h-16 w-auto filter brightness-110 contrast-110'
+                  ? 'h-8 w-auto filter brightness-75 contrast-125' 
+                  : 'h-10 w-auto filter brightness-110 contrast-110'
               } group-hover:scale-105 group-hover:drop-shadow-[0_0_20px_#d4af37aa]`}
-              style={{ maxWidth: scrolled ? '180px' : '240px' }}
               loading="lazy"
               decoding="async"
             />
@@ -148,10 +147,10 @@ const Navbar = () => {
         </ul>
         
         {/* Mobile Menu Button */}
-        <div className="md:hidden z-50">
+        <div className="md:hidden z-50 flex-shrink-0">
           <button
             onClick={toggleMenu}
-            className={`p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/60 ${
+            className={`p-2 sm:p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/60 ${
               scrolled
                 ? 'text-gray-800 hover:bg-[#d4af37]/10 hover:text-[#d4af37]'
                 : 'text-white hover:bg-white/10 hover:text-[#d4af37]'
@@ -160,13 +159,13 @@ const Navbar = () => {
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
           >
-            <div className="relative w-6 h-6">
+            <div className="relative w-5 h-5 sm:w-6 sm:h-6">
               {isOpen ? (
-                <svg className="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -186,7 +185,7 @@ const Navbar = () => {
       {/* Mobile Menu - Simplificado y funcional */}
       <div
         id="mobile-menu"
-        className={`md:hidden fixed top-28 left-4 right-4 bg-white rounded-2xl shadow-2xl z-50 transform transition-all duration-300 ease-out ${
+        className={`md:hidden fixed top-20 left-2 right-2 max-w-[calc(100vw-1rem)] bg-white rounded-2xl shadow-2xl z-50 transform transition-all duration-300 ease-out ${
           isOpen ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-4 opacity-0 scale-95 pointer-events-none'
         }`}
         role="menu"
